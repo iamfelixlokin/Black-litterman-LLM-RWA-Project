@@ -2,8 +2,8 @@
 // After running `npx hardhat run scripts/deploy.js --network amoy`
 // paste the printed addresses here (or in .env and import via import.meta.env)
 
-export const FUND_ADDRESS = import.meta.env.VITE_FUND_ADDRESS  || "0x0000000000000000000000000000000000000000";
-export const USDC_ADDRESS = import.meta.env.VITE_USDC_ADDRESS  || "0x0000000000000000000000000000000000000000";
+export const FUND_ADDRESS = import.meta.env.VITE_FUND_ADDRESS  || "0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5";
+export const USDC_ADDRESS = import.meta.env.VITE_USDC_ADDRESS  || "0x5c08Ebb0129799cC75A67d71B2639989C3b50be8";
 
 export const CHAIN_ID    = 80002;   // Polygon Amoy
 export const CHAIN_NAME  = "Polygon Amoy";
