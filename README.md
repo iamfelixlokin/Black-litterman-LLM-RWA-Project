@@ -1,92 +1,107 @@
-# Black-Litterman Portfolio Optimization with LLM-Generated Views
+# MAG7 Fund — Black-Litterman + LLM RWA Project
 
-## 專案概述
-本專案實現了基於Black-Litterman模型的資產配置系統，使用LLM分析非結構化數據生成市場觀點，針對美國七大科技股（Magnificent 7）進行投資組合優化。
+基於 Black-Litterman 模型與 Claude LLM 的量化策略，結合鏈上 RWA 代幣化的完整系統。每月自動對 Magnificent 7 科技股進行 rebalance，NAV 即時更新至 Polygon 區塊鏈，用戶可透過前端申購/贖回 M7F 代幣。
 
-## 目標資產
-- AAPL (Apple)
-- MSFT (Microsoft)
-- GOOGL (Google)
-- AMZN (Amazon)
-- NVDA (Nvidia)
-- TSLA (Tesla)
-- META (Meta)
+**前端網站**：https://black-litterman-llm-rwa.netlify.app
 
-## 策略架構
+---
 
-### 1. Black-Litterman Model
-- **市場均衡**：使用歷史數據估計市場隱含收益
-- **主觀觀點**：通過LLM分析新聞、財報、宏觀經濟數據生成
-- **觀點整合**：貝葉斯框架結合市場均衡與主觀觀點
-- **組合優化**：最大化效用函數得到最優權重
+## 系統架構
 
-### 2. Baseline 策略
-- **Markowitz Mean-Variance**: 傳統均值-方差優化
-- **SPY Benchmark**: 追蹤S&P 500指數
-- **Equal Weight**: 等權重配置七大股
+```
+Claude LLM（生成市場觀點）
+        ↓
+Black-Litterman 模型（計算最優權重）
+        ↓
+Alpaca Paper Trading（模擬倉執行交易）
+        ↓
+Oracle（推送 NAV + 權重到鏈上）
+        ↓
+Polygon Amoy 智能合約（記錄 NAV、發行/贖回 M7F 代幣）
+        ↓
+前端 Dashboard（用戶申購、贖回、查看績效）
+```
 
-### 3. 回測框架
-- **無前視偏差**：嚴格的時間序列分割
-- **滾動窗口**：定期重新平衡
-- **交易成本**：考慮滑點與手續費
-- **風險管理**：槓桿限制與止損機制
+---
+
+## 目標資產（Magnificent 7）
+
+| 代號 | 公司 |
+|------|------|
+| AAPL | Apple |
+| MSFT | Microsoft |
+| GOOGL | Google |
+| AMZN | Amazon |
+| NVDA | Nvidia |
+| TSLA | Tesla |
+| META | Meta |
+
+---
+
+## 技術棧
+
+| 層級 | 技術 |
+|------|------|
+| 策略 | Python, Black-Litterman, Anthropic Claude |
+| 模擬交易 | Alpaca Paper Trading API |
+| 區塊鏈 | Polygon Amoy testnet, Solidity 0.8.24 |
+| 合約工具 | Hardhat, ethers.js v6, OpenZeppelin |
+| 前端 | React + Vite, MetaMask |
+| 自動化 | GitHub Actions（每月1號） |
+
+---
 
 ## 專案結構
+
 ```
 black_litterman_project/
-├── src/
-│   ├── data_collection.py      # 數據收集（價格、新聞、財報）
-│   ├── llm_view_generator.py   # LLM觀點生成器
-│   ├── black_litterman.py      # BL模型實現
-│   ├── baseline_strategies.py  # Baseline策略
+├── src/                        # 策略核心
+│   ├── black_litterman.py      # BL 模型
+│   ├── llm_view_generator.py   # Claude LLM 觀點生成
+│   ├── data_collection.py      # yfinance 數據收集
 │   ├── backtest_engine.py      # 回測引擎
-│   ├── performance_metrics.py  # 績效評估
-│   └── utils.py                # 工具函數
-├── configs/
-│   └── config.yaml             # 配置文件
-├── data/                       # 數據存儲
-├── results/                    # 回測結果
-├── notebooks/                  # 分析筆記本
-└── requirements.txt            # 依賴套件
+│   └── performance_metrics.py  # 績效分析
+├── oracle/                     # Oracle 服務
+│   ├── oracle_service.py       # 主服務（NAV + rebalance）
+│   ├── alpaca_trader.py        # Alpaca 模擬倉整合
+│   ├── nav_calculator.py       # NAV 計算
+│   └── scheduler.py            # 本地排程（可選）
+├── contracts/                  # 智能合約
+│   ├── RWAFund.sol             # 主合約（M7F 代幣）
+│   └── mocks/MockUSDC.sol      # 測試 USDC
+├── frontend/                   # 前端
+│   └── src/                    # React 組件
+├── scripts/                    # Hardhat 腳本
+│   ├── deploy.js               # 部署合約
+│   └── interact.js             # 互動測試
+├── .github/workflows/          # GitHub Actions
+│   └── monthly_rebalance.yml   # 每月自動 rebalance
+├── .env.example                # 環境變數範例
+└── requirements.txt            # Python 依賴
 ```
 
-## 安裝依賴
-```bash
-pip install -r requirements.txt
-```
+---
 
-## 使用方法
+## 合約資訊（Polygon Amoy）
 
-### 1. 數據收集
-```python
-python src/data_collection.py --start_date 2020-01-01 --end_date 2024-12-31
-```
+| 項目 | 地址 |
+|------|------|
+| M7F 基金代幣 | `0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5` |
+| 測試 USDC | `0x5c08Ebb0129799cC75A67d71B2639989C3b50be8` |
 
-### 2. 運行回測
-```python
-python src/backtest_engine.py --config configs/config.yaml
-```
+- 代幣名稱：MAG7 Fund（M7F）
+- 小數位：18（M7F）、6（USDC）
+- 初始 NAV：$100 USDC/token
+- 申購/贖回手續費：0.5%
 
-### 3. 生成報告
-```python
-python src/performance_metrics.py --results_dir results/
-```
+---
 
-## 關鍵特性
-- ✅ 無前視偏差的回測設計
-- ✅ LLM驅動的觀點生成
-- ✅ 多基準策略對比
-- ✅ 完整的風險管理
-- ✅ 詳細的績效分析
+## 快速開始
 
-## 注意事項
-1. 需要API密鑰：Anthropic API (LLM)、Alpha Vantage/yfinance (數據)
-2. 建議使用GPU加速LLM推理
-3. 數據收集可能需要較長時間
-4. 回測結果僅供研究參考，不構成投資建議
+詳見 [QUICKSTART.md](./QUICKSTART.md)
 
-## 作者
-Quant Research Team
+---
 
-## 授權
-MIT License
+## 免責聲明
+
+本專案使用 Alpaca **Paper Trading**（模擬資金），不涉及真實資金。僅供研究與學習用途，不構成投資建議。
