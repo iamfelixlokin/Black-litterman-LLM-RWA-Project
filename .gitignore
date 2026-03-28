@@ -1,0 +1,36 @@
+# Environment variables (NEVER commit)
+.env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Data & results (large files)
+data/
+results/
+logs/
+*.pkl
+*.csv
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Hardhat
+cache/
+artifacts/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
