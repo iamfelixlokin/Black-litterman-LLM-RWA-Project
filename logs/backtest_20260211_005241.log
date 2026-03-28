@@ -1,0 +1,14 @@
+2026-02-11 00:52:41,341 - __main__ - INFO - ================================================================================
+2026-02-11 00:52:41,341 - __main__ - INFO - BLACK-LITTERMAN PORTFOLIO OPTIMIZATION
+2026-02-11 00:52:41,341 - __main__ - INFO - ================================================================================
+2026-02-11 00:52:41,341 - __main__ - INFO - Start time: 2026-02-11 00:52:41
+2026-02-11 00:52:41,341 - __main__ - INFO - Config file: ../configs/config.yaml
+2026-02-11 00:52:41,341 - __main__ - ERROR - Error during execution: [Errno 2] No such file or directory: '../configs/config.yaml'
+Traceback (most recent call last):
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/main.py", line 238, in main
+    config = load_config(args.config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/main.py", line 28, in load_config
+    with open(config_path, 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../configs/config.yaml'

@@ -1,0 +1,686 @@
+2026-02-11 00:53:22,383 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,383 - __main__ - INFO - BLACK-LITTERMAN PORTFOLIO OPTIMIZATION
+2026-02-11 00:53:22,383 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,383 - __main__ - INFO - Start time: 2026-02-11 00:53:22
+2026-02-11 00:53:22,383 - __main__ - INFO - Config file: configs/config.yaml
+2026-02-11 00:53:22,385 - __main__ - INFO - Configuration loaded successfully
+2026-02-11 00:53:22,385 - __main__ - INFO - 
+================================================================================
+2026-02-11 00:53:22,385 - __main__ - INFO - STEP 1: DATA COLLECTION
+2026-02-11 00:53:22,385 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,385 - __main__ - INFO - Loading cached price data...
+2026-02-11 00:53:22,394 - data_collection - INFO - Data loaded from /Users/felixlokin317/Desktop/black_litterman_project/src/../data/prices.csv
+2026-02-11 00:53:22,394 - __main__ - INFO - Price data shape: (2765, 8)
+2026-02-11 00:53:22,394 - __main__ - INFO - Date range: 2015-01-02 00:00:00 to 2025-12-30 00:00:00
+2026-02-11 00:53:22,394 - __main__ - INFO - 
+================================================================================
+2026-02-11 00:53:22,394 - __main__ - INFO - STEP 2: LLM SETUP
+2026-02-11 00:53:22,394 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,394 - __main__ - WARNING - ANTHROPIC_API_KEY not found. LLM views will be disabled.
+2026-02-11 00:53:22,394 - __main__ - WARNING - Set ANTHROPIC_API_KEY environment variable to enable LLM-generated views.
+2026-02-11 00:53:22,394 - __main__ - INFO - 
+================================================================================
+2026-02-11 00:53:22,394 - __main__ - INFO - STEP 3: BACKTEST EXECUTION
+2026-02-11 00:53:22,394 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,394 - __main__ - INFO - Initializing backtest engine...
+2026-02-11 00:53:22,397 - __main__ - INFO - 
+================================================================================
+2026-02-11 00:53:22,397 - __main__ - INFO - RUNNING BACKTEST FOR ALL STRATEGIES
+2026-02-11 00:53:22,397 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,397 - backtest_engine - INFO - 
+============================================================
+2026-02-11 00:53:22,397 - backtest_engine - INFO - Running Black-Litterman Strategy
+2026-02-11 00:53:22,397 - backtest_engine - INFO - ============================================================
+2026-02-11 00:53:22,397 - backtest_engine - INFO - Running backtest for Black-Litterman
+2026-02-11 00:53:22,399 - backtest_engine - INFO - Rebalancing 84 times from 2016-02-29 00:00:00 to 2025-10-31 00:00:00
+2026-02-11 00:53:22,440 - black_litterman - INFO - Market implied returns: [0.00033262 0.0003799  0.00037879 0.00047417 0.00038028 0.00050178
+ 0.00043445]
+2026-02-11 00:53:22,440 - black_litterman - INFO - Posterior returns: [0.00033262 0.0003799  0.00037879 0.00047417 0.00038028 0.00050178
+ 0.00043445]
+2026-02-11 00:53:22,440 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0162, Sharpe: 0.0254
+2026-02-11 00:53:22,441 - black_litterman - INFO - Market implied returns: [0.00033583 0.00038129 0.0003794  0.00047771 0.00037911 0.00048248
+ 0.00043329]
+2026-02-11 00:53:22,441 - black_litterman - INFO - Posterior returns: [0.00033583 0.00038129 0.0003794  0.00047771 0.00037911 0.00048248
+ 0.00043329]
+2026-02-11 00:53:22,442 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0162, Sharpe: 0.0253
+2026-02-11 00:53:22,442 - black_litterman - INFO - Market implied returns: [0.00032839 0.00036319 0.00037843 0.00045477 0.00039404 0.0004905
+ 0.00042414]
+2026-02-11 00:53:22,442 - black_litterman - INFO - Posterior returns: [0.00032839 0.00036319 0.00037843 0.00045477 0.00039404 0.0004905
+ 0.00042414]
+2026-02-11 00:53:22,443 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0161, Sharpe: 0.0252
+2026-02-11 00:53:22,443 - black_litterman - INFO - Market implied returns: [0.00034009 0.00037824 0.00039005 0.00046407 0.00041166 0.00051917
+ 0.00043411]
+2026-02-11 00:53:22,443 - black_litterman - INFO - Posterior returns: [0.00034009 0.00037824 0.00039005 0.00046407 0.00041166 0.00051917
+ 0.00043411]
+2026-02-11 00:53:22,444 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0164, Sharpe: 0.0256
+2026-02-11 00:53:22,444 - black_litterman - INFO - Market implied returns: [0.00025574 0.00030265 0.00027609 0.00036487 0.00033429 0.00041
+ 0.0003353 ]
+2026-02-11 00:53:22,444 - black_litterman - INFO - Posterior returns: [0.00025574 0.00030265 0.00027609 0.00036487 0.00033429 0.00041
+ 0.0003353 ]
+2026-02-11 00:53:22,445 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0144, Sharpe: 0.0226
+2026-02-11 00:53:22,445 - black_litterman - INFO - Market implied returns: [0.0002261  0.0002768  0.00024987 0.00033467 0.00031214 0.00038251
+ 0.00030706]
+2026-02-11 00:53:22,445 - black_litterman - INFO - Posterior returns: [0.0002261  0.0002768  0.00024987 0.00033467 0.00031214 0.00038251
+ 0.00030706]
+2026-02-11 00:53:22,445 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0138, Sharpe: 0.0216
+2026-02-11 00:53:22,446 - black_litterman - INFO - Market implied returns: [0.00021756 0.00024828 0.00022618 0.00031484 0.00031172 0.00037417
+ 0.00029277]
+2026-02-11 00:53:22,446 - black_litterman - INFO - Posterior returns: [0.00021756 0.00024828 0.00022618 0.00031484 0.00031172 0.00037417
+ 0.00029277]
+2026-02-11 00:53:22,446 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0135, Sharpe: 0.0211
+2026-02-11 00:53:22,447 - black_litterman - INFO - Market implied returns: [0.00022641 0.00025989 0.00023593 0.00032866 0.00041819 0.00036522
+ 0.00030057]
+2026-02-11 00:53:22,447 - black_litterman - INFO - Posterior returns: [0.00022641 0.00025989 0.00023593 0.00032866 0.00041819 0.00036522
+ 0.00030057]
+2026-02-11 00:53:22,447 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0140, Sharpe: 0.0218
+2026-02-11 00:53:22,448 - black_litterman - INFO - Market implied returns: [0.00014756 0.00019113 0.00017129 0.00023389 0.00039146 0.0003154
+ 0.00018541]
+2026-02-11 00:53:22,448 - black_litterman - INFO - Posterior returns: [0.00014756 0.00019113 0.00017129 0.00023389 0.00039146 0.0003154
+ 0.00018541]
+2026-02-11 00:53:22,450 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0119, Sharpe: 0.0191
+2026-02-11 00:53:22,450 - black_litterman - INFO - Market implied returns: [0.00013378 0.00014581 0.00014069 0.00017078 0.00035351 0.00021726
+ 0.00013654]
+2026-02-11 00:53:22,451 - black_litterman - INFO - Posterior returns: [0.00013378 0.00014581 0.00014069 0.00017078 0.00035351 0.00021726
+ 0.00013654]
+2026-02-11 00:53:22,451 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0109, Sharpe: 0.0170
+2026-02-11 00:53:22,451 - black_litterman - INFO - Market implied returns: [0.00012544 0.00013485 0.00013155 0.00015931 0.00035418 0.00022722
+ 0.00012603]
+2026-02-11 00:53:22,451 - black_litterman - INFO - Posterior returns: [0.00012544 0.00013485 0.00013155 0.00015931 0.00035418 0.00022722
+ 0.00012603]
+2026-02-11 00:53:22,452 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0107, Sharpe: 0.0168
+2026-02-11 00:53:22,452 - black_litterman - INFO - Market implied returns: [0.00011911 0.00011763 0.00011959 0.00014354 0.00038668 0.00023466
+ 0.00013311]
+2026-02-11 00:53:22,452 - black_litterman - INFO - Posterior returns: [0.00011911 0.00011763 0.00011959 0.00014354 0.00038668 0.00023466
+ 0.00013311]
+2026-02-11 00:53:22,453 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0103, Sharpe: 0.0167
+2026-02-11 00:53:22,454 - black_litterman - INFO - Market implied returns: [0.00012555 0.00011293 0.00012597 0.00014537 0.00040839 0.00023368
+ 0.00013581]
+2026-02-11 00:53:22,454 - black_litterman - INFO - Posterior returns: [0.00012555 0.00011293 0.00012597 0.00014537 0.00040839 0.00023368
+ 0.00013581]
+2026-02-11 00:53:22,455 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0104, Sharpe: 0.0169
+2026-02-11 00:53:22,455 - black_litterman - INFO - Market implied returns: [0.00012424 0.00011181 0.00012922 0.00015078 0.00042217 0.00024481
+ 0.00013654]
+2026-02-11 00:53:22,455 - black_litterman - INFO - Posterior returns: [0.00012424 0.00011181 0.00012922 0.00015078 0.00042217 0.00024481
+ 0.00013654]
+2026-02-11 00:53:22,456 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0105, Sharpe: 0.0171
+2026-02-11 00:53:22,457 - black_litterman - INFO - Market implied returns: [0.00013787 0.00012083 0.000139   0.00016534 0.00044629 0.00026436
+ 0.00014937]
+2026-02-11 00:53:22,457 - black_litterman - INFO - Posterior returns: [0.00013787 0.00012083 0.000139   0.00016534 0.00044629 0.00026436
+ 0.00014937]
+2026-02-11 00:53:22,458 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0110, Sharpe: 0.0178
+2026-02-11 00:53:22,458 - black_litterman - INFO - Market implied returns: [0.00014712 0.00013022 0.00014644 0.00019681 0.00045584 0.0002608
+ 0.00016654]
+2026-02-11 00:53:22,459 - black_litterman - INFO - Posterior returns: [0.00014712 0.00013022 0.00014644 0.00019681 0.00045584 0.0002608
+ 0.00016654]
+2026-02-11 00:53:22,460 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0113, Sharpe: 0.0183
+2026-02-11 00:53:22,460 - black_litterman - INFO - Market implied returns: [0.00013273 0.00011198 0.00013097 0.00017385 0.00034862 0.00024792
+ 0.00015516]
+2026-02-11 00:53:22,460 - black_litterman - INFO - Posterior returns: [0.00013273 0.00011198 0.00013097 0.00017385 0.00034862 0.00024792
+ 0.00015516]
+2026-02-11 00:53:22,460 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0109, Sharpe: 0.0171
+2026-02-11 00:53:22,461 - black_litterman - INFO - Market implied returns: [0.00013693 0.00011653 0.00012819 0.00017369 0.000338   0.00024127
+ 0.00015381]
+2026-02-11 00:53:22,461 - black_litterman - INFO - Posterior returns: [0.00013693 0.00011653 0.00012819 0.00017369 0.000338   0.00024127
+ 0.00015381]
+2026-02-11 00:53:22,461 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0108, Sharpe: 0.0170
+2026-02-11 00:53:22,462 - black_litterman - INFO - Market implied returns: [0.00018243 0.00018562 0.0001937  0.00021461 0.00039859 0.00027997
+ 0.00020484]
+2026-02-11 00:53:22,462 - black_litterman - INFO - Posterior returns: [0.00018243 0.00018562 0.0001937  0.00021461 0.00039859 0.00027997
+ 0.00020484]
+2026-02-11 00:53:22,462 - black_litterman - INFO - BL Portfolio - Return: 0.0002, Vol: 0.0123, Sharpe: 0.0193
+2026-02-11 00:53:22,462 - black_litterman - INFO - Market implied returns: [0.00024446 0.00028229 0.00028207 0.00032275 0.00051698 0.00040469
+ 0.00031204]
+2026-02-11 00:53:22,462 - black_litterman - INFO - Posterior returns: [0.00024446 0.00028229 0.00028207 0.00032275 0.00051698 0.00040469
+ 0.00031204]
+2026-02-11 00:53:22,464 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0143, Sharpe: 0.0230
+2026-02-11 00:53:22,464 - black_litterman - INFO - Market implied returns: [0.00024299 0.00028068 0.0002889  0.00031873 0.00047489 0.00040031
+ 0.00030995]
+2026-02-11 00:53:22,465 - black_litterman - INFO - Posterior returns: [0.00024299 0.00028068 0.0002889  0.00031873 0.00047489 0.00040031
+ 0.00030995]
+2026-02-11 00:53:22,465 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0145, Sharpe: 0.0228
+2026-02-11 00:53:22,466 - black_litterman - INFO - Market implied returns: [0.00023816 0.0002889  0.0002905  0.00032491 0.000451   0.00041968
+ 0.0003579 ]
+2026-02-11 00:53:22,466 - black_litterman - INFO - Posterior returns: [0.00023816 0.0002889  0.0002905  0.00032491 0.000451   0.00041968
+ 0.0003579 ]
+2026-02-11 00:53:22,467 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0147, Sharpe: 0.0230
+2026-02-11 00:53:22,467 - black_litterman - INFO - Market implied returns: [0.00022892 0.00028616 0.0002874  0.00031998 0.00043972 0.00047047
+ 0.00035728]
+2026-02-11 00:53:22,467 - black_litterman - INFO - Posterior returns: [0.00022892 0.00028616 0.0002874  0.00031998 0.00043972 0.00047047
+ 0.00035728]
+2026-02-11 00:53:22,468 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0144, Sharpe: 0.0231
+2026-02-11 00:53:22,469 - black_litterman - INFO - Market implied returns: [0.00028662 0.0003654  0.00036914 0.00040927 0.00056541 0.00062447
+ 0.00042116]
+2026-02-11 00:53:22,469 - black_litterman - INFO - Posterior returns: [0.00028662 0.0003654  0.00036914 0.00040927 0.00056541 0.00062447
+ 0.00042116]
+2026-02-11 00:53:22,470 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0163, Sharpe: 0.0260
+2026-02-11 00:53:22,470 - black_litterman - INFO - Market implied returns: [0.00035222 0.00041694 0.00042248 0.00050066 0.00069889 0.000656
+ 0.000472  ]
+2026-02-11 00:53:22,470 - black_litterman - INFO - Posterior returns: [0.00035222 0.00041694 0.00042248 0.00050066 0.00069889 0.000656
+ 0.000472  ]
+2026-02-11 00:53:22,472 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0174, Sharpe: 0.0280
+2026-02-11 00:53:22,472 - black_litterman - INFO - Market implied returns: [0.00044604 0.00050008 0.00049799 0.00063347 0.00079999 0.00075426
+ 0.00056585]
+2026-02-11 00:53:22,472 - black_litterman - INFO - Posterior returns: [0.00044604 0.00050008 0.00049799 0.00063347 0.00079999 0.00075426
+ 0.00056585]
+2026-02-11 00:53:22,473 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0191, Sharpe: 0.0306
+2026-02-11 00:53:22,474 - black_litterman - INFO - Market implied returns: [0.0005265  0.00054855 0.00054201 0.00069078 0.00088657 0.00080837
+ 0.00060959]
+2026-02-11 00:53:22,474 - black_litterman - INFO - Posterior returns: [0.0005265  0.00054855 0.00054201 0.00069078 0.00088657 0.00080837
+ 0.00060959]
+2026-02-11 00:53:22,475 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0200, Sharpe: 0.0321
+2026-02-11 00:53:22,475 - black_litterman - INFO - Market implied returns: [0.00048463 0.00048775 0.00049616 0.00066367 0.00082411 0.00076539
+ 0.00058846]
+2026-02-11 00:53:22,475 - black_litterman - INFO - Posterior returns: [0.00048463 0.00048775 0.00049616 0.00066367 0.00082411 0.00076539
+ 0.00058846]
+2026-02-11 00:53:22,476 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0193, Sharpe: 0.0310
+2026-02-11 00:53:22,477 - black_litterman - INFO - Market implied returns: [0.00043675 0.00040144 0.0004139  0.00057347 0.00073786 0.00065979
+ 0.00048983]
+2026-02-11 00:53:22,477 - black_litterman - INFO - Posterior returns: [0.00043675 0.00040144 0.0004139  0.00057347 0.00073786 0.00065979
+ 0.00048983]
+2026-02-11 00:53:22,478 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0179, Sharpe: 0.0288
+2026-02-11 00:53:22,478 - black_litterman - INFO - Market implied returns: [0.0004636  0.00041488 0.0004318  0.00059349 0.00075952 0.00068445
+ 0.00050644]
+2026-02-11 00:53:22,478 - black_litterman - INFO - Posterior returns: [0.0004636  0.00041488 0.0004318  0.00059349 0.00075952 0.00068445
+ 0.00050644]
+2026-02-11 00:53:22,479 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0183, Sharpe: 0.0293
+2026-02-11 00:53:22,480 - black_litterman - INFO - Market implied returns: [0.00048058 0.00042203 0.00044363 0.00060144 0.00078223 0.00071285
+ 0.0004867 ]
+2026-02-11 00:53:22,480 - black_litterman - INFO - Posterior returns: [0.00048058 0.00042203 0.00044363 0.00060144 0.00078223 0.00071285
+ 0.0004867 ]
+2026-02-11 00:53:22,481 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0185, Sharpe: 0.0296
+2026-02-11 00:53:22,482 - black_litterman - INFO - Market implied returns: [0.00054205 0.00046983 0.00048828 0.0006383  0.00087985 0.00071516
+ 0.00052878]
+2026-02-11 00:53:22,482 - black_litterman - INFO - Posterior returns: [0.00054205 0.00046983 0.00048828 0.0006383  0.00087985 0.00071516
+ 0.00052878]
+2026-02-11 00:53:22,484 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0192, Sharpe: 0.0308
+2026-02-11 00:53:22,484 - black_litterman - INFO - Market implied returns: [0.0004848  0.00038799 0.00040965 0.00051585 0.00076619 0.00061431
+ 0.00046708]
+2026-02-11 00:53:22,484 - black_litterman - INFO - Posterior returns: [0.0004848  0.00038799 0.00040965 0.00051585 0.00076619 0.00061431
+ 0.00046708]
+2026-02-11 00:53:22,485 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0178, Sharpe: 0.0285
+2026-02-11 00:53:22,486 - black_litterman - INFO - Market implied returns: [0.00031554 0.0002413  0.00026962 0.00028327 0.00049486 0.00047865
+ 0.00030459]
+2026-02-11 00:53:22,486 - black_litterman - INFO - Posterior returns: [0.00031554 0.0002413  0.00026962 0.00028327 0.00049486 0.00047865
+ 0.00030459]
+2026-02-11 00:53:22,487 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0144, Sharpe: 0.0231
+2026-02-11 00:53:22,487 - black_litterman - INFO - Market implied returns: [0.00025083 0.00020142 0.0002306  0.00022713 0.0004031  0.00044986
+ 0.00025945]
+2026-02-11 00:53:22,487 - black_litterman - INFO - Posterior returns: [0.00025083 0.00020142 0.0002306  0.00022713 0.0004031  0.00044986
+ 0.00025945]
+2026-02-11 00:53:22,488 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0133, Sharpe: 0.0212
+2026-02-11 00:53:22,489 - black_litterman - INFO - Market implied returns: [0.00086013 0.00087823 0.00073502 0.00056779 0.00117389 0.0012899
+ 0.00079633]
+2026-02-11 00:53:22,489 - black_litterman - INFO - Posterior returns: [0.00086013 0.00087823 0.00073502 0.00056779 0.00117389 0.0012899
+ 0.00079633]
+2026-02-11 00:53:22,490 - black_litterman - INFO - BL Portfolio - Return: 0.0009, Vol: 0.0227, Sharpe: 0.0375
+2026-02-11 00:53:22,491 - black_litterman - INFO - Market implied returns: [0.00098657 0.00100001 0.00086901 0.00066414 0.00134219 0.00147991
+ 0.00092126]
+2026-02-11 00:53:22,491 - black_litterman - INFO - Posterior returns: [0.00098657 0.00100001 0.00086901 0.00066414 0.00134219 0.00147991
+ 0.00092126]
+2026-02-11 00:53:22,492 - black_litterman - INFO - BL Portfolio - Return: 0.0010, Vol: 0.0244, Sharpe: 0.0402
+2026-02-11 00:53:22,493 - black_litterman - INFO - Market implied returns: [0.00099319 0.00101761 0.0008814  0.00067467 0.00134675 0.00150502
+ 0.00094303]
+2026-02-11 00:53:22,493 - black_litterman - INFO - Posterior returns: [0.00099319 0.00101761 0.0008814  0.00067467 0.00134675 0.00150502
+ 0.00094303]
+2026-02-11 00:53:22,494 - black_litterman - INFO - BL Portfolio - Return: 0.0010, Vol: 0.0245, Sharpe: 0.0405
+2026-02-11 00:53:22,495 - black_litterman - INFO - Market implied returns: [0.00102911 0.00106395 0.00091213 0.00075035 0.00138339 0.00162067
+ 0.00097654]
+2026-02-11 00:53:22,495 - black_litterman - INFO - Posterior returns: [0.00102911 0.00106395 0.00091213 0.00075035 0.00138339 0.00162067
+ 0.00097654]
+2026-02-11 00:53:22,496 - black_litterman - INFO - BL Portfolio - Return: 0.0010, Vol: 0.0252, Sharpe: 0.0415
+2026-02-11 00:53:22,497 - black_litterman - INFO - Market implied returns: [0.00100475 0.00104461 0.00087804 0.00072918 0.00132106 0.00162903
+ 0.00097155]
+2026-02-11 00:53:22,497 - black_litterman - INFO - Posterior returns: [0.00100475 0.00104461 0.00087804 0.00072918 0.00132106 0.00162903
+ 0.00097155]
+2026-02-11 00:53:22,499 - black_litterman - INFO - BL Portfolio - Return: 0.0010, Vol: 0.0251, Sharpe: 0.0411
+2026-02-11 00:53:22,500 - black_litterman - INFO - Market implied returns: [0.00113873 0.00114115 0.00094726 0.00082472 0.00145378 0.00189124
+ 0.00103513]
+2026-02-11 00:53:22,500 - black_litterman - INFO - Posterior returns: [0.00113873 0.00114115 0.00094726 0.00082472 0.00145378 0.00189124
+ 0.00103513]
+2026-02-11 00:53:22,501 - black_litterman - INFO - BL Portfolio - Return: 0.0011, Vol: 0.0264, Sharpe: 0.0433
+2026-02-11 00:53:22,502 - black_litterman - INFO - Market implied returns: [0.00124242 0.00122798 0.00101143 0.00094459 0.00156486 0.00196213
+ 0.00115883]
+2026-02-11 00:53:22,502 - black_litterman - INFO - Posterior returns: [0.00124242 0.00122798 0.00101143 0.00094459 0.00156486 0.00196213
+ 0.00115883]
+2026-02-11 00:53:22,503 - black_litterman - INFO - BL Portfolio - Return: 0.0012, Vol: 0.0276, Sharpe: 0.0450
+2026-02-11 00:53:22,504 - black_litterman - INFO - Market implied returns: [0.00124956 0.00122906 0.00101524 0.00094819 0.00156144 0.00198252
+ 0.00116815]
+2026-02-11 00:53:22,504 - black_litterman - INFO - Posterior returns: [0.00124956 0.00122906 0.00101524 0.00094819 0.00156144 0.00198252
+ 0.00116815]
+2026-02-11 00:53:22,505 - black_litterman - INFO - BL Portfolio - Return: 0.0012, Vol: 0.0277, Sharpe: 0.0451
+2026-02-11 00:53:22,506 - black_litterman - INFO - Market implied returns: [0.00074158 0.00062543 0.0005839  0.00067514 0.0009189  0.00138816
+ 0.00071005]
+2026-02-11 00:53:22,506 - black_litterman - INFO - Posterior returns: [0.00074158 0.00062543 0.0005839  0.00067514 0.0009189  0.00138816
+ 0.00071005]
+2026-02-11 00:53:22,507 - black_litterman - INFO - BL Portfolio - Return: 0.0008, Vol: 0.0220, Sharpe: 0.0355
+2026-02-11 00:53:22,507 - black_litterman - INFO - Market implied returns: [0.00063228 0.00052388 0.0004621  0.00059842 0.00078737 0.00122962
+ 0.00060873]
+2026-02-11 00:53:22,508 - black_litterman - INFO - Posterior returns: [0.00063228 0.00052388 0.0004621  0.00059842 0.00078737 0.00122962
+ 0.00060873]
+2026-02-11 00:53:22,508 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0204, Sharpe: 0.0328
+2026-02-11 00:53:22,509 - black_litterman - INFO - Market implied returns: [0.00059719 0.00048656 0.00042827 0.00055669 0.00075343 0.00116843
+ 0.00056185]
+2026-02-11 00:53:22,509 - black_litterman - INFO - Posterior returns: [0.00059719 0.00048656 0.00042827 0.00055669 0.00075343 0.00116843
+ 0.00056185]
+2026-02-11 00:53:22,510 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0197, Sharpe: 0.0318
+2026-02-11 00:53:22,510 - black_litterman - INFO - Market implied returns: [0.0005213  0.00041081 0.00039053 0.00046644 0.00069571 0.00093328
+ 0.00049037]
+2026-02-11 00:53:22,510 - black_litterman - INFO - Posterior returns: [0.0005213  0.00041081 0.00039053 0.00046644 0.00069571 0.00093328
+ 0.00049037]
+2026-02-11 00:53:22,511 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0184, Sharpe: 0.0295
+2026-02-11 00:53:22,512 - black_litterman - INFO - Market implied returns: [0.00039383 0.00032058 0.00032642 0.00037407 0.00055801 0.00066013
+ 0.00042673]
+2026-02-11 00:53:22,512 - black_litterman - INFO - Posterior returns: [0.00039383 0.00032058 0.00032642 0.00037407 0.00055801 0.00066013
+ 0.00042673]
+2026-02-11 00:53:22,513 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0163, Sharpe: 0.0261
+2026-02-11 00:53:22,513 - black_litterman - INFO - Market implied returns: [0.00030476 0.00024815 0.00028123 0.00027953 0.00050812 0.00059938
+ 0.00032523]
+2026-02-11 00:53:22,513 - black_litterman - INFO - Posterior returns: [0.00030476 0.00024815 0.00028123 0.00027953 0.00050812 0.00059938
+ 0.00032523]
+2026-02-11 00:53:22,515 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0148, Sharpe: 0.0238
+2026-02-11 00:53:22,515 - black_litterman - INFO - Market implied returns: [0.00033313 0.0002846  0.0003045  0.00030237 0.000608   0.00065867
+ 0.00034796]
+2026-02-11 00:53:22,515 - black_litterman - INFO - Posterior returns: [0.00033313 0.0002846  0.0003045  0.00030237 0.000608   0.00065867
+ 0.00034796]
+2026-02-11 00:53:22,516 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0155, Sharpe: 0.0251
+2026-02-11 00:53:22,517 - black_litterman - INFO - Market implied returns: [0.00033747 0.00030121 0.00031288 0.00032733 0.00066296 0.00072438
+ 0.00035485]
+2026-02-11 00:53:22,517 - black_litterman - INFO - Posterior returns: [0.00033747 0.00030121 0.00031288 0.00032733 0.00066296 0.00072438
+ 0.00035485]
+2026-02-11 00:53:22,518 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0159, Sharpe: 0.0259
+2026-02-11 00:53:22,518 - black_litterman - INFO - Market implied returns: [0.00037017 0.00035923 0.00036656 0.00042937 0.00078078 0.00078883
+ 0.00054964]
+2026-02-11 00:53:22,519 - black_litterman - INFO - Posterior returns: [0.00037017 0.00035923 0.00036656 0.00042937 0.00078078 0.00078883
+ 0.00054964]
+2026-02-11 00:53:22,519 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0174, Sharpe: 0.0285
+2026-02-11 00:53:22,520 - black_litterman - INFO - Market implied returns: [0.00036051 0.00038505 0.00039082 0.00045177 0.00082129 0.00073124
+ 0.00058869]
+2026-02-11 00:53:22,520 - black_litterman - INFO - Posterior returns: [0.00036051 0.00038505 0.00039082 0.00045177 0.00082129 0.00073124
+ 0.00058869]
+2026-02-11 00:53:22,521 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0175, Sharpe: 0.0288
+2026-02-11 00:53:22,522 - black_litterman - INFO - Market implied returns: [0.00054098 0.00053776 0.00056346 0.00072116 0.00115055 0.00102764
+ 0.00086285]
+2026-02-11 00:53:22,522 - black_litterman - INFO - Posterior returns: [0.00054098 0.00053776 0.00056346 0.00072116 0.00115055 0.00102764
+ 0.00086285]
+2026-02-11 00:53:22,523 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0209, Sharpe: 0.0347
+2026-02-11 00:53:22,523 - black_litterman - INFO - Market implied returns: [0.0006288  0.00061616 0.00066333 0.00084216 0.00129263 0.00117864
+ 0.00098621]
+2026-02-11 00:53:22,523 - black_litterman - INFO - Posterior returns: [0.0006288  0.00061616 0.00066333 0.00084216 0.00129263 0.00117864
+ 0.00098621]
+2026-02-11 00:53:22,525 - black_litterman - INFO - BL Portfolio - Return: 0.0008, Vol: 0.0222, Sharpe: 0.0372
+2026-02-11 00:53:22,525 - black_litterman - INFO - Market implied returns: [0.00071079 0.00071109 0.00079193 0.00099167 0.00146385 0.00132555
+ 0.00113671]
+2026-02-11 00:53:22,525 - black_litterman - INFO - Posterior returns: [0.00071079 0.00071109 0.00079193 0.00099167 0.00146385 0.00132555
+ 0.00113671]
+2026-02-11 00:53:22,527 - black_litterman - INFO - BL Portfolio - Return: 0.0009, Vol: 0.0238, Sharpe: 0.0398
+2026-02-11 00:53:22,527 - black_litterman - INFO - Market implied returns: [0.00075331 0.00074571 0.000831   0.00104862 0.0015264  0.00138353
+ 0.00120709]
+2026-02-11 00:53:22,528 - black_litterman - INFO - Posterior returns: [0.00075331 0.00074571 0.000831   0.00104862 0.0015264  0.00138353
+ 0.00120709]
+2026-02-11 00:53:22,529 - black_litterman - INFO - BL Portfolio - Return: 0.0010, Vol: 0.0244, Sharpe: 0.0408
+2026-02-11 00:53:22,530 - black_litterman - INFO - Market implied returns: [0.00082906 0.00083218 0.00090451 0.00112079 0.00160838 0.00144706
+ 0.00135362]
+2026-02-11 00:53:22,530 - black_litterman - INFO - Posterior returns: [0.00082906 0.00083218 0.00090451 0.00112079 0.00160838 0.00144706
+ 0.00135362]
+2026-02-11 00:53:22,531 - black_litterman - INFO - BL Portfolio - Return: 0.0011, Vol: 0.0256, Sharpe: 0.0424
+2026-02-11 00:53:22,532 - black_litterman - INFO - Market implied returns: [0.00091585 0.00090995 0.00099088 0.0012387  0.00169269 0.00151133
+ 0.00143982]
+2026-02-11 00:53:22,532 - black_litterman - INFO - Posterior returns: [0.00091585 0.00090995 0.00099088 0.0012387  0.00169269 0.00151133
+ 0.00143982]
+2026-02-11 00:53:22,533 - black_litterman - INFO - BL Portfolio - Return: 0.0012, Vol: 0.0266, Sharpe: 0.0440
+2026-02-11 00:53:22,534 - black_litterman - INFO - Market implied returns: [0.00095354 0.00094364 0.00104438 0.00129373 0.00174897 0.00159059
+ 0.00150495]
+2026-02-11 00:53:22,535 - black_litterman - INFO - Posterior returns: [0.00095354 0.00094364 0.00104438 0.00129373 0.00174897 0.00159059
+ 0.00150495]
+2026-02-11 00:53:22,536 - black_litterman - INFO - BL Portfolio - Return: 0.0012, Vol: 0.0271, Sharpe: 0.0450
+2026-02-11 00:53:22,537 - black_litterman - INFO - Market implied returns: [0.00092107 0.00092217 0.00104283 0.00124334 0.00167961 0.00152921
+ 0.00145597]
+2026-02-11 00:53:22,537 - black_litterman - INFO - Posterior returns: [0.00092107 0.00092217 0.00104283 0.00124334 0.00167961 0.00152921
+ 0.00145597]
+2026-02-11 00:53:22,538 - black_litterman - INFO - BL Portfolio - Return: 0.0012, Vol: 0.0267, Sharpe: 0.0442
+2026-02-11 00:53:22,539 - black_litterman - INFO - Market implied returns: [0.00088296 0.00087994 0.00101    0.00120943 0.00157166 0.00145332
+ 0.00141021]
+2026-02-11 00:53:22,539 - black_litterman - INFO - Posterior returns: [0.00088296 0.00087994 0.00101    0.00120943 0.00157166 0.00145332
+ 0.00141021]
+2026-02-11 00:53:22,540 - black_litterman - INFO - BL Portfolio - Return: 0.0011, Vol: 0.0262, Sharpe: 0.0433
+2026-02-11 00:53:22,541 - black_litterman - INFO - Market implied returns: [0.0007089  0.00074857 0.00085567 0.00096577 0.00129798 0.00118848
+ 0.00116642]
+2026-02-11 00:53:22,541 - black_litterman - INFO - Posterior returns: [0.0007089  0.00074857 0.00085567 0.00096577 0.00129798 0.00118848
+ 0.00116642]
+2026-02-11 00:53:22,542 - black_litterman - INFO - BL Portfolio - Return: 0.0009, Vol: 0.0240, Sharpe: 0.0393
+2026-02-11 00:53:22,543 - black_litterman - INFO - Market implied returns: [0.00061119 0.00067442 0.00075933 0.0008512  0.00115401 0.00103319
+ 0.0010426 ]
+2026-02-11 00:53:22,543 - black_litterman - INFO - Posterior returns: [0.00061119 0.00067442 0.00075933 0.0008512  0.00115401 0.00103319
+ 0.0010426 ]
+2026-02-11 00:53:22,544 - black_litterman - INFO - BL Portfolio - Return: 0.0008, Vol: 0.0226, Sharpe: 0.0369
+2026-02-11 00:53:22,545 - black_litterman - INFO - Market implied returns: [0.00057619 0.00063368 0.00068977 0.00079136 0.00108352 0.00099296
+ 0.00096519]
+2026-02-11 00:53:22,545 - black_litterman - INFO - Posterior returns: [0.00057619 0.00063368 0.00068977 0.00079136 0.00108352 0.00099296
+ 0.00096519]
+2026-02-11 00:53:22,547 - black_litterman - INFO - BL Portfolio - Return: 0.0008, Vol: 0.0219, Sharpe: 0.0357
+2026-02-11 00:53:22,547 - black_litterman - INFO - Market implied returns: [0.00054592 0.0006107  0.00065672 0.00073248 0.00104007 0.00098256
+ 0.0009365 ]
+2026-02-11 00:53:22,547 - black_litterman - INFO - Posterior returns: [0.00054592 0.0006107  0.00065672 0.00073248 0.00104007 0.00098256
+ 0.0009365 ]
+2026-02-11 00:53:22,549 - black_litterman - INFO - BL Portfolio - Return: 0.0008, Vol: 0.0215, Sharpe: 0.0350
+2026-02-11 00:53:22,550 - black_litterman - INFO - Market implied returns: [0.00044403 0.00049413 0.00057539 0.00063903 0.00091782 0.00090523
+ 0.00074205]
+2026-02-11 00:53:22,550 - black_litterman - INFO - Posterior returns: [0.00044403 0.00049413 0.00057539 0.00063903 0.00091782 0.00090523
+ 0.00074205]
+2026-02-11 00:53:22,552 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0198, Sharpe: 0.0324
+2026-02-11 00:53:22,552 - black_litterman - INFO - Market implied returns: [0.00033808 0.00040614 0.00047504 0.00052111 0.00077033 0.00081477
+ 0.00064414]
+2026-02-11 00:53:22,552 - black_litterman - INFO - Posterior returns: [0.00033808 0.00040614 0.00047504 0.00052111 0.00077033 0.00081477
+ 0.00064414]
+2026-02-11 00:53:22,554 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0180, Sharpe: 0.0297
+2026-02-11 00:53:22,555 - black_litterman - INFO - Market implied returns: [0.00025065 0.00031736 0.00038569 0.00042205 0.00060613 0.00058715
+ 0.00055123]
+2026-02-11 00:53:22,555 - black_litterman - INFO - Posterior returns: [0.00025065 0.00031736 0.00038569 0.00042205 0.00060613 0.00058715
+ 0.00055123]
+2026-02-11 00:53:22,556 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0161, Sharpe: 0.0264
+2026-02-11 00:53:22,556 - black_litterman - INFO - Market implied returns: [0.00021642 0.00027693 0.00032426 0.00038694 0.00056853 0.00052069
+ 0.00047913]
+2026-02-11 00:53:22,556 - black_litterman - INFO - Posterior returns: [0.00021642 0.00027693 0.00032426 0.00038694 0.00056853 0.00052069
+ 0.00047913]
+2026-02-11 00:53:22,557 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0152, Sharpe: 0.0248
+2026-02-11 00:53:22,558 - black_litterman - INFO - Market implied returns: [0.00019335 0.00024677 0.00030377 0.00034224 0.00058086 0.00048141
+ 0.00041114]
+2026-02-11 00:53:22,558 - black_litterman - INFO - Posterior returns: [0.00019335 0.00024677 0.00030377 0.00034224 0.00058086 0.00048141
+ 0.00041114]
+2026-02-11 00:53:22,559 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0146, Sharpe: 0.0239
+2026-02-11 00:53:22,559 - black_litterman - INFO - Market implied returns: [0.00019052 0.00024021 0.00029112 0.00034094 0.00050586 0.0004671
+ 0.00040622]
+2026-02-11 00:53:22,559 - black_litterman - INFO - Posterior returns: [0.00019052 0.00024021 0.00029112 0.00034094 0.00050586 0.0004671
+ 0.00040622]
+2026-02-11 00:53:22,560 - black_litterman - INFO - BL Portfolio - Return: 0.0003, Vol: 0.0143, Sharpe: 0.0233
+2026-02-11 00:53:22,561 - black_litterman - INFO - Market implied returns: [0.00021771 0.00024185 0.00029768 0.0003287  0.00054521 0.00052153
+ 0.00042587]
+2026-02-11 00:53:22,561 - black_litterman - INFO - Posterior returns: [0.00021771 0.00024185 0.00029768 0.0003287  0.00054521 0.00052153
+ 0.00042587]
+2026-02-11 00:53:22,562 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0147, Sharpe: 0.0240
+2026-02-11 00:53:22,562 - black_litterman - INFO - Market implied returns: [0.00022759 0.00024692 0.00031563 0.00036601 0.00065034 0.00058272
+ 0.00042498]
+2026-02-11 00:53:22,562 - black_litterman - INFO - Posterior returns: [0.00022759 0.00024692 0.00031563 0.00036601 0.00065034 0.00058272
+ 0.00042498]
+2026-02-11 00:53:22,563 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0153, Sharpe: 0.0250
+2026-02-11 00:53:22,564 - black_litterman - INFO - Market implied returns: [0.00021796 0.00023343 0.00027044 0.00032258 0.00060578 0.00060391
+ 0.00038467]
+2026-02-11 00:53:22,564 - black_litterman - INFO - Posterior returns: [0.00021796 0.00023343 0.00027044 0.00032258 0.00060578 0.00060391
+ 0.00038467]
+2026-02-11 00:53:22,565 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0149, Sharpe: 0.0242
+2026-02-11 00:53:22,565 - black_litterman - INFO - Market implied returns: [0.00021892 0.00026453 0.00031316 0.00036977 0.00062166 0.00070834
+ 0.00040999]
+2026-02-11 00:53:22,565 - black_litterman - INFO - Posterior returns: [0.00021892 0.00026453 0.00031316 0.00036977 0.00062166 0.00070834
+ 0.00040999]
+2026-02-11 00:53:22,566 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0156, Sharpe: 0.0254
+2026-02-11 00:53:22,567 - black_litterman - INFO - Market implied returns: [0.00022332 0.00028667 0.00033627 0.0003819  0.00070419 0.00074788
+ 0.00041765]
+2026-02-11 00:53:22,567 - black_litterman - INFO - Posterior returns: [0.00022332 0.00028667 0.00033627 0.0003819  0.00070419 0.00074788
+ 0.00041765]
+2026-02-11 00:53:22,568 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0160, Sharpe: 0.0263
+2026-02-11 00:53:22,568 - black_litterman - INFO - Market implied returns: [0.00022808 0.00027157 0.00033932 0.00035319 0.00066558 0.0007907
+ 0.00033461]
+2026-02-11 00:53:22,568 - black_litterman - INFO - Posterior returns: [0.00022808 0.00027157 0.00033932 0.00035319 0.00066558 0.0007907
+ 0.00033461]
+2026-02-11 00:53:22,569 - black_litterman - INFO - BL Portfolio - Return: 0.0004, Vol: 0.0157, Sharpe: 0.0258
+2026-02-11 00:53:22,569 - black_litterman - INFO - Market implied returns: [0.00026828 0.00030878 0.00039625 0.00041362 0.00075873 0.00096717
+ 0.00040406]
+2026-02-11 00:53:22,570 - black_litterman - INFO - Posterior returns: [0.00026828 0.00030878 0.00039625 0.00041362 0.00075873 0.00096717
+ 0.00040406]
+2026-02-11 00:53:22,570 - black_litterman - INFO - BL Portfolio - Return: 0.0005, Vol: 0.0170, Sharpe: 0.0280
+2026-02-11 00:53:22,571 - black_litterman - INFO - Market implied returns: [0.00054954 0.00047493 0.00056751 0.0006555  0.00107503 0.00136501
+ 0.00066788]
+2026-02-11 00:53:22,571 - black_litterman - INFO - Posterior returns: [0.00054954 0.00047493 0.00056751 0.0006555  0.00107503 0.00136501
+ 0.00066788]
+2026-02-11 00:53:22,572 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0209, Sharpe: 0.0345
+2026-02-11 00:53:22,572 - black_litterman - INFO - Market implied returns: [0.00056143 0.0004839  0.00058217 0.0006985  0.00107023 0.00143143
+ 0.0007219 ]
+2026-02-11 00:53:22,572 - black_litterman - INFO - Posterior returns: [0.00056143 0.0004839  0.00058217 0.0006985  0.00107023 0.00143143
+ 0.0007219 ]
+2026-02-11 00:53:22,573 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0213, Sharpe: 0.0351
+2026-02-11 00:53:22,574 - black_litterman - INFO - Market implied returns: [0.00052408 0.00044649 0.00053807 0.00066128 0.00100316 0.001327
+ 0.00065742]
+2026-02-11 00:53:22,574 - black_litterman - INFO - Posterior returns: [0.00052408 0.00044649 0.00053807 0.00066128 0.00100316 0.001327
+ 0.00065742]
+2026-02-11 00:53:22,574 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0205, Sharpe: 0.0339
+2026-02-11 00:53:22,575 - black_litterman - INFO - Market implied returns: [0.00051304 0.00041904 0.00051293 0.00060778 0.00082795 0.00121042
+ 0.00063599]
+2026-02-11 00:53:22,575 - black_litterman - INFO - Posterior returns: [0.00051304 0.00041904 0.00051293 0.00060778 0.00082795 0.00121042
+ 0.00063599]
+2026-02-11 00:53:22,576 - black_litterman - INFO - BL Portfolio - Return: 0.0006, Vol: 0.0199, Sharpe: 0.0324
+2026-02-11 00:53:22,576 - black_litterman - INFO - Market implied returns: [0.00051951 0.00043108 0.00052342 0.00062607 0.00084995 0.00119153
+ 0.0006702 ]
+2026-02-11 00:53:22,576 - black_litterman - INFO - Posterior returns: [0.00051951 0.00043108 0.00052342 0.00062607 0.00084995 0.00119153
+ 0.0006702 ]
+2026-02-11 00:53:22,577 - black_litterman - INFO - BL Portfolio - Return: 0.0007, Vol: 0.0200, Sharpe: 0.0327
+2026-02-11 00:53:22,580 - backtest_engine - INFO - Black-Litterman - Final Value: $21,464,680, Total Return: 2046.47%
+2026-02-11 00:53:22,581 - backtest_engine - INFO - 
+============================================================
+2026-02-11 00:53:22,581 - backtest_engine - INFO - Running Markowitz Strategy
+2026-02-11 00:53:22,581 - backtest_engine - INFO - ============================================================
+2026-02-11 00:53:22,581 - backtest_engine - INFO - Running backtest for Markowitz
+2026-02-11 00:53:22,581 - backtest_engine - INFO - Rebalancing 84 times from 2016-02-29 00:00:00 to 2025-10-31 00:00:00
+2026-02-11 00:53:22,583 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0014, Vol: 0.0160, Sharpe: 0.0745
+2026-02-11 00:53:22,585 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0159, Sharpe: 0.1036
+2026-02-11 00:53:22,587 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0161, Sharpe: 0.1188
+2026-02-11 00:53:22,588 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0162, Sharpe: 0.1172
+2026-02-11 00:53:22,590 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0022, Vol: 0.0143, Sharpe: 0.1425
+2026-02-11 00:53:22,591 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0023, Vol: 0.0141, Sharpe: 0.1537
+2026-02-11 00:53:22,593 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0136, Sharpe: 0.1179
+2026-02-11 00:53:22,595 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0146, Sharpe: 0.1116
+2026-02-11 00:53:22,597 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0025, Vol: 0.0134, Sharpe: 0.1755
+2026-02-11 00:53:22,599 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0026, Vol: 0.0127, Sharpe: 0.1913
+2026-02-11 00:53:22,600 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0024, Vol: 0.0126, Sharpe: 0.1760
+2026-02-11 00:53:22,603 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0023, Vol: 0.0107, Sharpe: 0.1965
+2026-02-11 00:53:22,605 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0023, Vol: 0.0106, Sharpe: 0.1980
+2026-02-11 00:53:22,607 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0109, Sharpe: 0.1759
+2026-02-11 00:53:22,608 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0111, Sharpe: 0.1720
+2026-02-11 00:53:22,610 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0109, Sharpe: 0.1796
+2026-02-11 00:53:22,612 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0094, Sharpe: 0.1779
+2026-02-11 00:53:22,614 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0103, Sharpe: 0.1834
+2026-02-11 00:53:22,616 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0023, Vol: 0.0128, Sharpe: 0.1703
+2026-02-11 00:53:22,617 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0156, Sharpe: 0.1257
+2026-02-11 00:53:22,618 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0149, Sharpe: 0.1078
+2026-02-11 00:53:22,620 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0016, Vol: 0.0131, Sharpe: 0.1079
+2026-02-11 00:53:22,622 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0019, Vol: 0.0129, Sharpe: 0.1368
+2026-02-11 00:53:22,623 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0010, Vol: 0.0143, Sharpe: 0.0601
+2026-02-11 00:53:22,625 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0011, Vol: 0.0167, Sharpe: 0.0538
+2026-02-11 00:53:22,626 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0007, Vol: 0.0189, Sharpe: 0.0281
+2026-02-11 00:53:22,628 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0004, Vol: 0.0186, Sharpe: 0.0143
+2026-02-11 00:53:22,630 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0004, Vol: 0.0180, Sharpe: 0.0133
+2026-02-11 00:53:22,632 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0010, Vol: 0.0155, Sharpe: 0.0573
+2026-02-11 00:53:22,634 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0005, Vol: 0.0169, Sharpe: 0.0210
+2026-02-11 00:53:22,635 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0007, Vol: 0.0162, Sharpe: 0.0321
+2026-02-11 00:53:22,637 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0004, Vol: 0.0168, Sharpe: 0.0143
+2026-02-11 00:53:22,639 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0012, Vol: 0.0156, Sharpe: 0.0647
+2026-02-11 00:53:22,640 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0128, Sharpe: 0.1478
+2026-02-11 00:53:22,641 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0023, Vol: 0.0123, Sharpe: 0.1786
+2026-02-11 00:53:22,644 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0264, Sharpe: 0.0704
+2026-02-11 00:53:22,646 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0030, Vol: 0.0276, Sharpe: 0.1023
+2026-02-11 00:53:22,648 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0040, Vol: 0.0282, Sharpe: 0.1371
+2026-02-11 00:53:22,650 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0046, Vol: 0.0288, Sharpe: 0.1540
+2026-02-11 00:53:22,652 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0056, Vol: 0.0277, Sharpe: 0.1953
+2026-02-11 00:53:22,653 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0055, Vol: 0.0307, Sharpe: 0.1737
+2026-02-11 00:53:22,655 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0051, Vol: 0.0304, Sharpe: 0.1609
+2026-02-11 00:53:22,656 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0049, Vol: 0.0301, Sharpe: 0.1563
+2026-02-11 00:53:22,658 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0043, Vol: 0.0241, Sharpe: 0.1726
+2026-02-11 00:53:22,660 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0038, Vol: 0.0224, Sharpe: 0.1610
+2026-02-11 00:53:22,662 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0034, Vol: 0.0216, Sharpe: 0.1484
+2026-02-11 00:53:22,664 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0182, Sharpe: 0.1070
+2026-02-11 00:53:22,666 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0152, Sharpe: 0.1227
+2026-02-11 00:53:22,667 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0025, Vol: 0.0150, Sharpe: 0.1576
+2026-02-11 00:53:22,669 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0022, Vol: 0.0152, Sharpe: 0.1374
+2026-02-11 00:53:22,671 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0017, Vol: 0.0165, Sharpe: 0.0911
+2026-02-11 00:53:22,672 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0016, Vol: 0.0177, Sharpe: 0.0803
+2026-02-11 00:53:22,674 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0021, Vol: 0.0188, Sharpe: 0.1010
+2026-02-11 00:53:22,675 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0008, Vol: 0.0232, Sharpe: 0.0295
+2026-02-11 00:53:22,677 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0001, Vol: 0.0223, Sharpe: -0.0027
+2026-02-11 00:53:22,679 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0002, Vol: 0.0236, Sharpe: 0.0002
+2026-02-11 00:53:22,680 - baseline_strategies - INFO - Markowitz Portfolio - Return: -0.0001, Vol: 0.0242, Sharpe: -0.0094
+2026-02-11 00:53:22,682 - baseline_strategies - INFO - Markowitz Portfolio - Return: -0.0009, Vol: 0.0275, Sharpe: -0.0378
+2026-02-11 00:53:22,684 - baseline_strategies - INFO - Markowitz Portfolio - Return: -0.0013, Vol: 0.0247, Sharpe: -0.0588
+2026-02-11 00:53:22,685 - baseline_strategies - INFO - Markowitz Portfolio - Return: -0.0003, Vol: 0.0268, Sharpe: -0.0173
+2026-02-11 00:53:22,687 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0000, Vol: 0.0311, Sharpe: -0.0036
+2026-02-11 00:53:22,689 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0000, Vol: 0.0285, Sharpe: -0.0043
+2026-02-11 00:53:22,691 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0249, Sharpe: 0.0750
+2026-02-11 00:53:22,693 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0026, Vol: 0.0244, Sharpe: 0.1018
+2026-02-11 00:53:22,695 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0027, Vol: 0.0238, Sharpe: 0.1056
+2026-02-11 00:53:22,697 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0028, Vol: 0.0237, Sharpe: 0.1113
+2026-02-11 00:53:22,698 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0035, Vol: 0.0216, Sharpe: 0.1548
+2026-02-11 00:53:22,699 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0036, Vol: 0.0200, Sharpe: 0.1733
+2026-02-11 00:53:22,701 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0034, Vol: 0.0182, Sharpe: 0.1792
+2026-02-11 00:53:22,702 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0036, Vol: 0.0175, Sharpe: 0.1961
+2026-02-11 00:53:22,704 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0029, Vol: 0.0170, Sharpe: 0.1609
+2026-02-11 00:53:22,706 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0025, Vol: 0.0168, Sharpe: 0.1421
+2026-02-11 00:53:22,708 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0019, Vol: 0.0158, Sharpe: 0.1073
+2026-02-11 00:53:22,710 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0028, Vol: 0.0175, Sharpe: 0.1492
+2026-02-11 00:53:22,711 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0030, Vol: 0.0170, Sharpe: 0.1703
+2026-02-11 00:53:22,714 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0026, Vol: 0.0169, Sharpe: 0.1431
+2026-02-11 00:53:22,716 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0026, Vol: 0.0191, Sharpe: 0.1268
+2026-02-11 00:53:22,718 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0014, Vol: 0.0148, Sharpe: 0.0868
+2026-02-11 00:53:22,719 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0013, Vol: 0.0196, Sharpe: 0.0607
+2026-02-11 00:53:22,722 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0017, Vol: 0.0246, Sharpe: 0.0633
+2026-02-11 00:53:22,724 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0257, Sharpe: 0.0655
+2026-02-11 00:53:22,725 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0229, Sharpe: 0.0732
+2026-02-11 00:53:22,728 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0020, Vol: 0.0227, Sharpe: 0.0821
+2026-02-11 00:53:22,730 - baseline_strategies - INFO - Markowitz Portfolio - Return: 0.0018, Vol: 0.0193, Sharpe: 0.0859
+2026-02-11 00:53:22,733 - backtest_engine - INFO - Markowitz - Final Value: $36,175,697, Total Return: 3517.57%
+2026-02-11 00:53:22,733 - backtest_engine - INFO - 
+============================================================
+2026-02-11 00:53:22,733 - backtest_engine - INFO - Running Equal Weight Strategy
+2026-02-11 00:53:22,733 - backtest_engine - INFO - ============================================================
+2026-02-11 00:53:22,733 - backtest_engine - INFO - Running backtest for Equal Weight
+2026-02-11 00:53:22,734 - backtest_engine - INFO - Rebalancing 84 times from 2016-02-29 00:00:00 to 2025-10-31 00:00:00
+2026-02-11 00:53:22,734 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,734 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,735 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,735 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,736 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,736 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,736 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,737 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,737 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,737 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,738 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,738 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,739 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,739 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,739 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,740 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,740 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,741 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,741 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,741 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,742 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,742 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,743 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,743 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,744 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,744 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,744 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,745 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,745 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,745 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,746 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,746 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,747 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,747 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,748 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,748 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,749 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,749 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,750 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,750 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,750 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,751 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,751 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,752 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,752 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,752 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,753 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,753 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,754 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,754 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,755 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,755 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,755 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,756 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,756 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,757 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,757 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,757 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,758 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,758 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,759 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,759 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,760 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,760 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,760 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,761 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,761 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,761 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,762 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,762 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,763 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,763 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,764 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,764 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,765 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,765 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,766 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,766 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,766 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,767 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,767 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,768 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,768 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,769 - baseline_strategies - INFO - Equal weight portfolio: 7 assets, 0.1429 each
+2026-02-11 00:53:22,771 - backtest_engine - INFO - Equal Weight - Final Value: $25,162,629, Total Return: 2416.26%
+2026-02-11 00:53:22,771 - backtest_engine - INFO - 
+============================================================
+2026-02-11 00:53:22,771 - backtest_engine - INFO - Running SPY Benchmark
+2026-02-11 00:53:22,771 - backtest_engine - INFO - ============================================================
+2026-02-11 00:53:22,772 - backtest_engine - INFO - Running benchmark (SPY) backtest
+2026-02-11 00:53:22,772 - backtest_engine - INFO - SPY Benchmark - Final Value: $4,032,408, Total Return: 303.24%
+2026-02-11 00:53:22,772 - __main__ - INFO - 
+================================================================================
+2026-02-11 00:53:22,772 - __main__ - INFO - STEP 4: PERFORMANCE ANALYSIS
+2026-02-11 00:53:22,772 - __main__ - INFO - ================================================================================
+2026-02-11 00:53:22,772 - __main__ - INFO - Analyzing results...
+2026-02-11 00:53:22,772 - performance_metrics - INFO - Generating performance report...
+2026-02-11 00:53:22,780 - performance_metrics - INFO - Summary table saved to /Users/felixlokin317/Desktop/black_litterman_project/src/../results/performance_summary.csv
+2026-02-11 00:53:23,089 - performance_metrics - INFO - Cumulative returns plot saved to /Users/felixlokin317/Desktop/black_litterman_project/src/../results/cumulative_returns.png
+2026-02-11 00:54:53,078 - performance_metrics - INFO - Drawdown plots saved to /Users/felixlokin317/Desktop/black_litterman_project/src/../results/drawdowns.png
+2026-02-11 00:54:54,242 - performance_metrics - INFO - Rolling metrics plot saved to /Users/felixlokin317/Desktop/black_litterman_project/src/../results/rolling_metrics.png
+2026-02-11 00:54:55,157 - performance_metrics - INFO - Return distribution plot saved to /Users/felixlokin317/Desktop/black_litterman_project/src/../results/return_distributions.png
+2026-02-11 00:54:56,339 - __main__ - ERROR - Error during execution: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")
+Traceback (most recent call last):
+  File "pandas/_libs/tslibs/offsets.pyx", line 6313, in pandas._libs.tslibs.offsets.to_offset
+  File "pandas/_libs/tslibs/offsets.pyx", line 6180, in pandas._libs.tslibs.offsets._validate_to_offset_alias
+ValueError: 'M' is no longer supported for offsets. Please use 'ME' instead.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/main.py", line 272, in main
+    analyze_results(results, config, args.output_dir)
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/main.py", line 184, in analyze_results
+    analyzer.generate_report(results, benchmark_returns, output_dir)
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/performance_metrics.py", line 438, in generate_report
+    self.plot_weights_evolution(
+  File "/Users/felixlokin317/Desktop/black_litterman_project/src/performance_metrics.py", line 330, in plot_weights_evolution
+    weights_monthly = weights.resample('M').last()
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/bl_env/lib/python3.11/site-packages/pandas/core/generic.py", line 9423, in resample
+    return get_resampler(
+           ^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/bl_env/lib/python3.11/site-packages/pandas/core/resample.py", line 2334, in get_resampler
+    tg = TimeGrouper(obj, **kwds)  # type: ignore[arg-type]
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/bl_env/lib/python3.11/site-packages/pandas/core/resample.py", line 2420, in __init__
+    freq = to_offset(freq)
+           ^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/offsets.pyx", line 6229, in pandas._libs.tslibs.offsets.to_offset
+  File "pandas/_libs/tslibs/offsets.pyx", line 6352, in pandas._libs.tslibs.offsets.to_offset
+  File "pandas/_libs/tslibs/offsets.pyx", line 6137, in pandas._libs.tslibs.offsets.raise_invalid_freq
+ValueError: Invalid frequency: M. Failed to parse with error message: ValueError("'M' is no longer supported for offsets. Please use 'ME' instead.")

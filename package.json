@@ -1,0 +1,26 @@
+{
+  "name": "bl-rwa-fund",
+  "version": "1.0.0",
+  "description": "Black-Litterman RWA Fund - On-chain NAV & rebalancing on Polygon Amoy",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
+    "deploy:amoy": "hardhat run scripts/deploy.js --network amoy",
+    "interact:amoy": "hardhat run scripts/interact.js --network amoy",
+    "verify:amoy": "hardhat verify --network amoy",
+    "node": "hardhat node",
+    "clean": "hardhat clean"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "hardhat": "^2.22.0",
+    "ethers": "^6.11.0",
+    "chai": "^4.4.1",
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}

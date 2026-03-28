@@ -1,0 +1,46 @@
+name: Monthly Rebalance & NAV Update
+
+on:
+  # 每月1號 09:30 UTC 自動執行
+  schedule:
+    - cron: '30 9 1 * *'
+  # 也可以手動觸發（測試用）
+  workflow_dispatch:
+
+jobs:
+  rebalance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Rebalance (BL Model → Alpaca → On-chain)
+        env:
+          ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
+          ALCHEMY_RPC_URL:         ${{ secrets.ALCHEMY_RPC_URL }}
+          ORACLE_PRIVATE_KEY:      ${{ secrets.ORACLE_PRIVATE_KEY }}
+          FUND_CONTRACT_ADDRESS:   ${{ secrets.FUND_CONTRACT_ADDRESS }}
+          USDC_CONTRACT_ADDRESS:   ${{ secrets.USDC_CONTRACT_ADDRESS }}
+          ALPACA_API_KEY:          ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
+        run: python oracle/oracle_service.py --action rebalance
+
+      - name: Update NAV on-chain
+        env:
+          ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
+          ALCHEMY_RPC_URL:         ${{ secrets.ALCHEMY_RPC_URL }}
+          ORACLE_PRIVATE_KEY:      ${{ secrets.ORACLE_PRIVATE_KEY }}
+          FUND_CONTRACT_ADDRESS:   ${{ secrets.FUND_CONTRACT_ADDRESS }}
+          USDC_CONTRACT_ADDRESS:   ${{ secrets.USDC_CONTRACT_ADDRESS }}
+          ALPACA_API_KEY:          ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
+        run: python oracle/oracle_service.py --action nav

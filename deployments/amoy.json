@@ -1,0 +1,10 @@
+{
+  "network": "amoy",
+  "chainId": "80002",
+  "deployedAt": "2026-03-28T08:45:35.672Z",
+  "deployer": "0x1940d1d04D9D694ED19c37da11b9C96e17b0fd7f",
+  "contracts": {
+    "MockUSDC": "0x5c08Ebb0129799cC75A67d71B2639989C3b50be8",
+    "RWAFund": "0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5"
+  }
+}

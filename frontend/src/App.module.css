@@ -1,0 +1,102 @@
+.root { min-height: 100vh; display: flex; flex-direction: column; }
+
+.errorBanner {
+  background: rgba(239,68,68,0.12);
+  border-bottom: 1px solid rgba(239,68,68,0.3);
+  color: var(--red);
+  padding: 10px 32px;
+  font-size: 13px;
+}
+
+.main {
+  flex: 1;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Stats ── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ── Charts ── */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Bottom ── */
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.connectPrompt {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  color: var(--muted);
+}
+.connectBtn {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Meta ── */
+.metaRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+.metaItem  { display: flex; flex-direction: column; gap: 4px; }
+.metaLabel { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.metaVal   { font-size: 13px; font-family: var(--mono); }
+
+/* ── Loading bar ── */
+.loadingBar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  background-size: 200% 100%;
+  animation: slide 1.4s linear infinite;
+}
+@keyframes slide {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .statsRow  { grid-template-columns: repeat(2, 1fr); }
+  .chartsRow { grid-template-columns: 1fr; }
+  .bottomRow { grid-template-columns: 1fr; }
+  .metaRow   { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .main      { padding: 16px; }
+  .statsRow  { grid-template-columns: 1fr 1fr; }
+  .metaRow   { grid-template-columns: 1fr; }
+}

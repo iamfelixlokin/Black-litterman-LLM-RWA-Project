@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logoIcon { font-size: 22px; color: var(--accent); }
+.logoText { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(99,102,241,0.15);
+  color: var(--accent2);
+  font-weight: 500;
+}
+
+.right { display: flex; align-items: center; gap: 12px; }
+
+.walletRow { display: flex; align-items: center; gap: 8px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.addr { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+
+.btnConnect {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.btnConnect:hover { opacity: 0.85; }
+
+.btnGhost {
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  transition: color 0.15s;
+}
+.btnGhost:hover { color: var(--text); }

@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.item { display: flex; flex-direction: column; gap: 4px; }
+.label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.val   { font-size: 20px; font-weight: 700; font-family: var(--mono); }
+.green { color: var(--green); }
+.red   { color: var(--red); }
+
+.faucetBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(99,102,241,0.12);
+  color: var(--accent2);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(99,102,241,0.3);
+  transition: background 0.15s;
+}
+.faucetBtn:hover { background: rgba(99,102,241,0.22); }
