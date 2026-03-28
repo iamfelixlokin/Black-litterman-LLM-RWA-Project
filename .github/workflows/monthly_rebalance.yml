@@ -37,13 +37,3 @@ jobs:
           ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
         run: python oracle/oracle_service.py --action rebalance
 
-      - name: Update NAV on-chain
-        env:
-          ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
-          ALCHEMY_RPC_URL:         ${{ secrets.ALCHEMY_RPC_URL }}
-          ORACLE_PRIVATE_KEY:      ${{ secrets.ORACLE_PRIVATE_KEY }}
-          FUND_CONTRACT_ADDRESS:   ${{ secrets.FUND_CONTRACT_ADDRESS }}
-          USDC_CONTRACT_ADDRESS:   ${{ secrets.USDC_CONTRACT_ADDRESS }}
-          ALPACA_API_KEY:          ${{ secrets.ALPACA_API_KEY }}
-          ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
-        run: python oracle/oracle_service.py --action nav
