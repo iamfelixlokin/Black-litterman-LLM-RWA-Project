@@ -39,15 +39,17 @@ MAG7 Fund 是一個結合量化金融與區塊鏈技術的 RWA（Real World Asse
 
 ### 1.2 投資標的
 
-| 代碼 | 公司 | 市值（估算，十億美元） |
-|------|------|------------------------|
-| AAPL | Apple Inc. | 3,000 |
-| MSFT | Microsoft Corporation | 2,800 |
-| NVDA | NVIDIA Corporation | 2,200 |
-| GOOGL | Alphabet Inc. | 2,000 |
-| AMZN | Amazon.com Inc. | 1,800 |
-| META | Meta Platforms Inc. | 1,200 |
-| TSLA | Tesla Inc. | 600 |
+| 代碼 | 公司 |
+|------|------|
+| AAPL | Apple Inc. |
+| MSFT | Microsoft Corporation |
+| NVDA | NVIDIA Corporation |
+| GOOGL | Alphabet Inc. |
+| AMZN | Amazon.com Inc. |
+| META | Meta Platforms Inc. |
+| TSLA | Tesla Inc. |
+
+> **注意**：BL 模型內部使用市值加權計算均衡報酬，市值數值硬編碼於 `oracle/nav_calculator.py`（`MARKET_CAPS` 字典），應定期依最新數據更新。
 
 ### 1.3 代幣資訊
 
