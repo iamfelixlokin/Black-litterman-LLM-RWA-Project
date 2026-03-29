@@ -94,12 +94,12 @@ export function useFund(signer, address) {
           positions: data.positions,
           timestamp: data.timestamp,
         });
-        // Also update fundInfo.nav if we have totalSupply
+        // NAV tracks Alpaca performance: (current equity / initial $100k) × $100
         setFundInfo(prev => {
-          if (!prev || !prev.totalSupply || prev.totalSupply === 0) return prev;
-          const navPerToken = data.equity / prev.totalSupply;
+          if (!prev) return prev;
+          const navPerToken = (data.equity / 100_000) * 100;
           const returnPct   = ((navPerToken - 100) / 100) * 100;
-          return { ...prev, nav: navPerToken, totalAUM: data.equity, returnPct };
+          return { ...prev, nav: navPerToken, returnPct };
         });
       }
     } catch (_) {}
