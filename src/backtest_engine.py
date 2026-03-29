@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Callable, Optional
 import logging
 from tqdm import tqdm
+import yfinance as yf
 
 from utils import (
     calculate_returns, get_rebalance_dates, calculate_turnover,
@@ -75,7 +76,45 @@ class BacktestEngine:
         
         # Results storage
         self.results = {}
+
+        # Pre-fetch current market caps once（用於推算歷史市值）
+        self._current_market_caps = self._fetch_current_market_caps(prices.columns.tolist())
         
+    def _fetch_current_market_caps(self, tickers: List[str]) -> Dict[str, float]:
+        """從 yfinance 抓取當前市值（十億美元），回測開始時執行一次。"""
+        market_caps = {}
+        fallback = 1000.0
+        for ticker in tickers:
+            try:
+                info = yf.Ticker(ticker).info
+                mc = info.get("marketCap")
+                market_caps[ticker] = mc / 1e9 if mc and mc > 0 else fallback
+            except Exception:
+                market_caps[ticker] = fallback
+        logger.info(f"Fetched current market caps: { {k: f'${v:.0f}B' for k, v in market_caps.items()} }")
+        return market_caps
+
+    def _get_historical_market_caps(self, tickers: List[str], date: pd.Timestamp) -> np.ndarray:
+        """
+        用股價比例推算歷史市值（無需額外 API 呼叫）。
+        historical_mc ≈ current_mc × (price_at_date / current_price)
+        """
+        current_prices = self.prices.iloc[-1]   # 最新一筆
+        try:
+            hist_prices = self.prices.loc[:date].iloc[-1]
+        except Exception:
+            hist_prices = current_prices
+
+        market_caps = []
+        for ticker in tickers:
+            mc = self._current_market_caps.get(ticker, 1000.0)
+            cur_p = current_prices.get(ticker, 1.0)
+            hist_p = hist_prices.get(ticker, cur_p)
+            if cur_p > 0:
+                mc = mc * (hist_p / cur_p)
+            market_caps.append(max(mc, 1.0))
+        return np.array(market_caps, dtype=float)
+
     def run_backtest(self,
                     strategy_name: str,
                     weight_function: Callable,
@@ -233,8 +272,10 @@ class BacktestEngine:
         def bl_weight_function(hist_returns: pd.DataFrame, current_date: pd.Timestamp) -> np.ndarray:
             """Calculate BL weights with LLM views"""
             
-            # Get market caps (use equal for simplicity, or fetch real data)
-            market_caps = np.ones(len(hist_returns.columns))
+            # 用股價比例推算該重平衡日期的歷史市值
+            market_caps = self._get_historical_market_caps(
+                hist_returns.columns.tolist(), current_date
+            )
             
             # Generate LLM views if available
             if llm_generator and data_collector:
