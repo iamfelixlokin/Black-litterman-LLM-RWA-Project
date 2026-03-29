@@ -102,14 +102,14 @@ class NAVCalculator:
 
         if last_update_ts == 0:
             logger.info("First NAV update – using initial contract NAV")
-            total_aum = (total_supply * current_nav_int) // 10**18
+            total_aum = round(total_supply * current_nav_int / 10**18)
             return current_nav_int, total_aum
 
         # On-chain weights
         weights = self._get_on_chain_weights()
         if not weights:
             logger.warning("No weights on-chain yet; returning unchanged NAV")
-            total_aum = (total_supply * current_nav_int) // 10**18
+            total_aum = round(total_supply * current_nav_int / 10**18)
             return current_nav_int, total_aum
 
         # Fetch prices since last update
@@ -122,7 +122,7 @@ class NAVCalculator:
         new_nav_float = current_nav_int * (1.0 + period_return)
         new_nav_int   = max(1, int(new_nav_float))  # never go below 1 unit
 
-        total_aum = (total_supply * new_nav_int) // 10**18
+        total_aum = round(total_supply * new_nav_int / 10**18)
         return new_nav_int, total_aum
 
     # ── Rebalance weights ─────────────────────────────────────────────────────
@@ -214,7 +214,7 @@ class NAVCalculator:
     ) -> float:
         """Compute weighted portfolio return over [start, end]."""
         tickers = list(weights.keys())
-        start_str = (start - timedelta(days=5)).strftime("%Y-%m-%d")  # buffer for weekends
+        start_str = (start - timedelta(days=10)).strftime("%Y-%m-%d")  # buffer for weekends/holidays
         end_str   = end.strftime("%Y-%m-%d")
 
         try:

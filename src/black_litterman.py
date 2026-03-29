@@ -107,8 +107,8 @@ class BlackLittermanModel:
     def optimize_portfolio(self,
                           expected_returns: np.ndarray,
                           covariance: np.ndarray,
-                          min_weight: float = 0.0,
-                          max_weight: float = 1.0) -> np.ndarray:
+                          min_weight: float = 0.05,
+                          max_weight: float = 0.30) -> np.ndarray:
         """
         Optimize portfolio weights using mean-variance optimization
         
@@ -174,8 +174,8 @@ class BlackLittermanModel:
                           Q: np.ndarray,
                           Omega: np.ndarray,
                           market_caps: Optional[np.ndarray] = None,
-                          min_weight: float = 0.0,
-                          max_weight: float = 1.0) -> Dict:
+                          min_weight: float = 0.05,
+                          max_weight: float = 0.30) -> Dict:
         """
         Complete Black-Litterman optimization workflow
         
