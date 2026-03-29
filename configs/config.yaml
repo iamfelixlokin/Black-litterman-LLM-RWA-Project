@@ -46,11 +46,14 @@ llm:
     Analyze the provided information and give your views on expected returns.
   
   # Data sources for LLM analysis
+  # 注意：目前實作只使用歷史股價數據（Alpha vs SPY）
+  # 以下為未來可擴充的數據源，目前未啟用
   data_sources:
-    - news_headlines
-    - earnings_reports
-    - macro_indicators
-    - sentiment_analysis
+    - price_history    # ✅ 目前啟用：近期股價、Alpha、波動率
+    # - news_headlines     # 未啟用
+    # - earnings_reports   # 未啟用
+    # - macro_indicators   # 未啟用
+    # - sentiment_analysis # 未啟用
   
   # View generation parameters
   view_horizon: 30  # days ahead for return forecast
