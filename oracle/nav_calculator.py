@@ -82,6 +82,7 @@ class NAVCalculator:
                 model="claude-sonnet-4-20250514",
                 temperature=0.3,
                 max_tokens=2000,
+                confidence_omega={"high": 0.15, "medium": 0.50, "low": 2.00},
             )
 
     # ── NAV calculation ───────────────────────────────────────────────────────

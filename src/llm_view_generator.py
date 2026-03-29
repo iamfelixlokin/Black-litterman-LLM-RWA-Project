@@ -20,14 +20,15 @@ class LLMViewGenerator:
     Generates market views using LLM analysis of news, earnings, and macro data
     """
     
-    def __init__(self, 
+    def __init__(self,
                  api_key: str,
                  model: str = "claude-sonnet-4-20250514",
                  temperature: float = 0.3,
-                 max_tokens: int = 2000):
+                 max_tokens: int = 2000,
+                 confidence_omega: Optional[Dict[str, float]] = None):
         """
         Initialize LLM view generator
-        
+
         Parameters:
         -----------
         api_key : str
@@ -38,11 +39,19 @@ class LLMViewGenerator:
             Sampling temperature
         max_tokens : int
             Maximum tokens for response
+        confidence_omega : dict, optional
+            Omega uncertainty scalars per confidence level.
+            Defaults to {"high": 0.15, "medium": 0.5, "low": 2.0}
         """
         self.client = anthropic.Anthropic(api_key=api_key)
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.confidence_omega = confidence_omega or {
+            "high":   0.15,   # Low uncertainty → view影響力大
+            "medium": 0.50,   # Medium uncertainty
+            "low":    2.00,   # High uncertainty → view影響力小
+        }
         
     def create_system_prompt(self) -> str:
         """Create system prompt for Alpha-based view generation"""
@@ -341,12 +350,8 @@ Provide your analysis in the specified JSON format."""
         """
         n_views = len(views_df)
         
-        # Confidence level mapping
-        confidence_map = {
-            'high': 0.25,    # Low uncertainty
-            'medium': 1.0,   # Medium uncertainty
-            'low': 4.0       # High uncertainty
-        }
+        # Confidence level mapping（從 __init__ 讀取，與 config.yaml 一致）
+        confidence_map = self.confidence_omega
         
         # Calculate view variance
         omega = np.zeros(n_views)

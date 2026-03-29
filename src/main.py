@@ -99,7 +99,8 @@ def setup_llm_generator(config: dict) -> LLMViewGenerator:
         api_key=api_key,
         model=config['llm']['model'],
         temperature=config['llm']['temperature'],
-        max_tokens=config['llm']['max_tokens']
+        max_tokens=config['llm']['max_tokens'],
+        confidence_omega=config['black_litterman'].get('confidence_omega', None)
     )
     
     return generator
