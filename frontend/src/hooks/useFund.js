@@ -1,15 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Contract, JsonRpcProvider, formatUnits } from "ethers";
 import { FUND_ADDRESS, USDC_ADDRESS, FUND_ABI, USDC_ABI, RPC_URL } from "../constants/contracts.js";
 
 const readProvider = new JsonRpcProvider(RPC_URL);
+const REFRESH_INTERVAL = 30_000; // 30 seconds
 
 export function useFund(signer, address) {
-  const [fundInfo, setFundInfo]     = useState(null);
-  const [userInfo, setUserInfo]     = useState(null);
-  const [assets, setAssets]         = useState([]);
-  const [navHistory, setNavHistory] = useState([]);
-  const [loading, setLoading]       = useState(false);
+  const [fundInfo, setFundInfo]       = useState(null);
+  const [userInfo, setUserInfo]       = useState(null);
+  const [assets, setAssets]           = useState([]);
+  const [navHistory, setNavHistory]   = useState([]);
+  const [liveNav, setLiveNav]         = useState(null); // real-time from Alpaca
+  const [loading, setLoading]         = useState(false);
+  const intervalRef                   = useRef(null);
 
   const fundRead = new Contract(FUND_ADDRESS, FUND_ABI, readProvider);
   const usdcRead = new Contract(USDC_ADDRESS, USDC_ABI, readProvider);
@@ -77,6 +80,36 @@ export function useFund(signer, address) {
   }, [address]);
 
   useEffect(() => { refresh(); }, [refresh]);
+
+  // ── Real-time NAV from Alpaca via Netlify Function ─────────────────────────
+  const fetchLiveNav = useCallback(async () => {
+    try {
+      const res  = await fetch("/.netlify/functions/alpaca-nav");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.equity && data.equity > 0) {
+        // NAV per token = equity / totalSupply (same logic as oracle)
+        setLiveNav({
+          equity:    data.equity,
+          positions: data.positions,
+          timestamp: data.timestamp,
+        });
+        // Also update fundInfo.nav if we have totalSupply
+        setFundInfo(prev => {
+          if (!prev || !prev.totalSupply || prev.totalSupply === 0) return prev;
+          const navPerToken = data.equity / prev.totalSupply;
+          const returnPct   = ((navPerToken - 100) / 100) * 100;
+          return { ...prev, nav: navPerToken, totalAUM: data.equity, returnPct };
+        });
+      }
+    } catch (_) {}
+  }, []);
+
+  useEffect(() => {
+    fetchLiveNav();
+    intervalRef.current = setInterval(fetchLiveNav, REFRESH_INTERVAL);
+    return () => clearInterval(intervalRef.current);
+  }, [fetchLiveNav]);
 
   // ── Gas override for Polygon Amoy (min 25 gwei tip) ─────────────────────
   const GAS_OPTS = {
@@ -158,7 +191,7 @@ export function useFund(signer, address) {
 
   return {
     fundInfo, userInfo, assets, navHistory,
-    loading, refresh,
+    liveNav, loading, refresh,
     subscribe, redeem, faucet,
     previewSubscribe, previewRedeem,
     addTokensToMetaMask,
