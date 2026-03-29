@@ -50,9 +50,8 @@ class NAVCalculator:
         Rolling window used when training the BL model (default 252)
     """
 
-    # Approximate market caps (USD billions) – used for BL implied returns
-    # Update these periodically; rough order matters more than precision
-    MARKET_CAPS = {
+    # Fallback market caps (USD billions) if yfinance fetch fails
+    MARKET_CAPS_FALLBACK = {
         "AAPL":  3000,
         "MSFT":  2800,
         "GOOGL": 2000,
@@ -145,9 +144,7 @@ class NAVCalculator:
 
         P, Q, Omega = self._build_views(returns)
 
-        market_caps = np.array([
-            self.MARKET_CAPS.get(t, 1000) for t in self.tickers
-        ], dtype=float)
+        market_caps = self._fetch_market_caps()
 
         result = self.bl_model.run_bl_optimization(
             returns=returns,
@@ -176,6 +173,26 @@ class NAVCalculator:
         return assets, weight_bps
 
     # ── Private helpers ───────────────────────────────────────────────────────
+
+    def _fetch_market_caps(self) -> np.ndarray:
+        """Fetch live market caps from yfinance; falls back to hardcoded values."""
+        market_caps = []
+        for ticker in self.tickers:
+            try:
+                info = yf.Ticker(ticker).info
+                mc = info.get("marketCap")
+                if mc and mc > 0:
+                    market_caps.append(mc / 1e9)  # 轉換為十億美元
+                    logger.info(f"  {ticker} market cap: ${mc/1e9:.0f}B")
+                else:
+                    fallback = self.MARKET_CAPS_FALLBACK.get(ticker, 1000)
+                    market_caps.append(fallback)
+                    logger.warning(f"  {ticker} market cap unavailable, using fallback ${fallback}B")
+            except Exception as e:
+                fallback = self.MARKET_CAPS_FALLBACK.get(ticker, 1000)
+                market_caps.append(fallback)
+                logger.warning(f"  {ticker} market cap fetch failed ({e}), using fallback ${fallback}B")
+        return np.array(market_caps, dtype=float)
 
     def _get_on_chain_weights(self) -> Dict[str, float]:
         """Fetch portfolio weights from the smart contract."""

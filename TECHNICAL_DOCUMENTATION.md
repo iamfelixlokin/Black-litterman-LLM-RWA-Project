@@ -49,7 +49,6 @@ MAG7 Fund 是一個結合量化金融與區塊鏈技術的 RWA（Real World Asse
 | META | Meta Platforms Inc. |
 | TSLA | Tesla Inc. |
 
-> **注意**：BL 模型內部使用市值加權計算均衡報酬，市值數值硬編碼於 `oracle/nav_calculator.py`（`MARKET_CAPS` 字典），應定期依最新數據更新。
 
 ### 1.3 代幣資訊
 
