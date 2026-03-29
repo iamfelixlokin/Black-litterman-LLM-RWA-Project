@@ -253,7 +253,7 @@ frontend/
     ├── hooks/useFund.js
     │       └── [RWAFund.sol ABI]
     ├── hooks/useWallet.js
-    └── netlify/functions/nav.js
+    └── netlify/functions/alpaca-nav.js
             └── [Alpaca Paper API]
 ```
 

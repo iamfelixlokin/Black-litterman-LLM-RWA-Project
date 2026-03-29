@@ -111,15 +111,15 @@ contract RWAFund is ERC20, AccessControl, Pausable, ReentrancyGuard {
 
     /// @dev Tokens can only be minted (subscribe) or burned (redeem)
     function transfer(address, uint256) public pure override returns (bool) {
-        revert("BLSF: non-transferable");
+        revert("M7F: non-transferable");
     }
 
     function transferFrom(address, address, uint256) public pure override returns (bool) {
-        revert("BLSF: non-transferable");
+        revert("M7F: non-transferable");
     }
 
     function approve(address, uint256) public pure override returns (bool) {
-        revert("BLSF: non-transferable");
+        revert("M7F: non-transferable");
     }
 
     // =========================================================
