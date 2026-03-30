@@ -13,7 +13,7 @@ export default function App() {
   const wallet = useWallet();
   const fund   = useFund(wallet.signer, wallet.address);
 
-  const { fundInfo, userInfo, assets, navHistory, loading } = fund;
+  const { fundInfo, userInfo, assets, navHistory, loading, liveNavLoading } = fund;
 
   const fmtDate = (ts) =>
     ts ? new Date(ts * 1000).toLocaleString() : "Never";
@@ -35,7 +35,7 @@ export default function App() {
         <section className={styles.statsRow}>
           <StatCard
             label="NAV / Token"
-            value={fundInfo ? `$${fundInfo.nav.toFixed(4)}` : "—"}
+            value={liveNavLoading ? "⏳ Loading..." : fundInfo ? `$${fundInfo.nav.toFixed(4)}` : "—"}
             sub="USDC per M7F"
             highlight
           />
@@ -51,7 +51,7 @@ export default function App() {
           />
           <StatCard
             label="Fund Return"
-            value={fundInfo ? `${((fundInfo.nav / 100 - 1) * 100).toFixed(2)}%` : "—"}
+            value={liveNavLoading ? "⏳ Loading..." : fundInfo ? `${((fundInfo.nav / 100 - 1) * 100).toFixed(2)}%` : "—"}
             sub={`vs $100 initial`}
           />
         </section>

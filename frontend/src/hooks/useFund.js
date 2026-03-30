@@ -12,6 +12,7 @@ export function useFund(signer, address) {
   const [navHistory, setNavHistory]   = useState([]);
   const [liveNav, setLiveNav]         = useState(null); // real-time from Alpaca
   const [loading, setLoading]         = useState(false);
+  const [liveNavLoading, setLiveNavLoading] = useState(true); // true until Alpaca responds
   const intervalRef                   = useRef(null);
 
   const fundRead = new Contract(FUND_ADDRESS, FUND_ABI, readProvider);
@@ -88,7 +89,6 @@ export function useFund(signer, address) {
       if (!res.ok) return;
       const data = await res.json();
       if (data.equity && data.equity > 0) {
-        // NAV per token = equity / totalSupply (same logic as oracle)
         setLiveNav({
           equity:    data.equity,
           positions: data.positions,
@@ -103,6 +103,9 @@ export function useFund(signer, address) {
         });
       }
     } catch (_) {}
+    finally {
+      setLiveNavLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -191,7 +194,7 @@ export function useFund(signer, address) {
 
   return {
     fundInfo, userInfo, assets, navHistory,
-    liveNav, loading, refresh,
+    liveNav, loading, liveNavLoading, refresh,
     subscribe, redeem, faucet,
     previewSubscribe, previewRedeem,
     addTokensToMetaMask,
