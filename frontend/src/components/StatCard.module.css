@@ -11,6 +11,7 @@
 
 .label    { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
 .value    { font-size: 26px; font-weight: 700; font-family: var(--mono); }
+.subValue { font-size: 18px; font-weight: 600; font-family: var(--mono); }
 .sub      { font-size: 12px; color: var(--muted); }
 .positive { color: #22c55e; }
 .negative { color: #ef4444; }

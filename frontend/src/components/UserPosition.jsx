@@ -1,14 +1,14 @@
 import styles from "./UserPosition.module.css";
 import panelStyles from "./Panel.module.css";
 
-export default function UserPosition({ userInfo, fundInfo, onFaucet, onAddTokens }) {
+export default function UserPosition({ userInfo, fundInfo, displayNav, onFaucet, onAddTokens }) {
   if (!userInfo) return null;
 
-  const tokenVal = userInfo.tokenBalance * (fundInfo?.nav ?? 100);
-  const pnlPct   = fundInfo
-    ? ((fundInfo.nav / 100 - 1) * 100).toFixed(2)
-    : "0.00";
-  const isPos = parseFloat(pnlPct) >= 0;
+  const nav      = displayNav ?? fundInfo?.nav ?? 100;
+  const tokenVal = userInfo.tokenBalance * nav;
+  const pnlPct   = ((nav / 100 - 1) * 100).toFixed(2);
+  const pnlAmt   = userInfo.tokenBalance * (nav - 100);
+  const isPos    = parseFloat(pnlPct) >= 0;
 
   return (
     <div className={panelStyles.panel}>
@@ -30,6 +30,9 @@ export default function UserPosition({ userInfo, fundInfo, onFaucet, onAddTokens
           <span className={styles.label}>Fund Return</span>
           <span className={`${styles.val} ${isPos ? styles.green : styles.red}`}>
             {isPos ? "+" : ""}{pnlPct}%
+          </span>
+          <span className={`${styles.pnlAmt} ${isPos ? styles.green : styles.red}`}>
+            {isPos ? "+" : ""}${pnlAmt.toFixed(2)}
           </span>
         </div>
       </div>

@@ -73,7 +73,7 @@ export default function App() {
           <StatCard
             label="Fund Return"
             value={liveNavLoading ? "⏳ Loading..." : fundReturn != null ? `${fundReturn.toFixed(2)}%` : "—"}
-            sub={!liveNavLoading ? fundReturnSub : ""}
+            subValue={!liveNavLoading && fundReturnAmt != null ? `${fundReturnAmt >= 0 ? "+" : ""}$${fundReturnAmt.toLocaleString("en", { maximumFractionDigits: 2 })}` : ""}
             positive={!liveNavLoading && fundReturn != null && fundReturn >= 0}
             negative={!liveNavLoading && fundReturn != null && fundReturn < 0}
           />
@@ -91,6 +91,7 @@ export default function App() {
             <UserPosition
               userInfo={userInfo}
               fundInfo={fundInfo}
+              displayNav={displayNav}
               onFaucet={fund.faucet}
               onAddTokens={fund.addTokensToMetaMask}
             />
