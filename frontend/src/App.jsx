@@ -21,12 +21,12 @@ export default function App() {
     : fundInfo?.nav;
 
   const fundReturn    = displayNav != null ? ((displayNav / 100 - 1) * 100) : null;
-  const fundReturnAmt = displayNav != null && userInfo?.balance > 0
-    ? userInfo.balance * (displayNav - 100)
-    : displayNav != null ? (displayNav - 100) : null;
-  const fundReturnSub = displayNav != null && userInfo?.balance > 0
-    ? `${fundReturnAmt >= 0 ? "+" : ""}$${fundReturnAmt.toFixed(2)} total`
-    : displayNav != null ? `${(displayNav - 100) >= 0 ? "+" : ""}$${(displayNav - 100).toFixed(4)} / token` : "";
+  const fundReturnAmt = displayNav != null && fundInfo?.totalSupply > 0
+    ? fundInfo.totalSupply * (displayNav - 100)
+    : null;
+  const fundReturnSub = fundReturnAmt != null
+    ? `${fundReturnAmt >= 0 ? "+" : ""}$${fundReturnAmt.toLocaleString("en", { maximumFractionDigits: 2 })} total`
+    : "";
 
   // Use live Alpaca positions for actual weights; fall back to contract target weights
   const displayAssets = (liveNav?.positions?.length > 0)
