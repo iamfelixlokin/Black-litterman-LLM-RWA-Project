@@ -1,14 +1,14 @@
 name: Monthly Rebalance & NAV Update
 
 on:
-  # 每月1號 09:30 UTC 自動執行
+  # 每天 09:30 UTC 執行（美股開盤前）
   schedule:
-    - cron: '30 9 1 * *'
-  # 也可以手動觸發（測試用）
+    - cron: '30 9 * * 1-5'   # 週一到週五（美股交易日）
+  # 手動觸發（測試用）
   workflow_dispatch:
 
 jobs:
-  rebalance:
+  oracle:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt
           pip install web3 alpaca-py
 
-      - name: Run Rebalance (BL Model → Alpaca → On-chain)
+      - name: Monthly Rebalance (1st of month only)
         env:
           ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
           ALCHEMY_RPC_URL:         ${{ secrets.ALCHEMY_RPC_URL }}
@@ -35,5 +35,11 @@ jobs:
           USDC_CONTRACT_ADDRESS:   ${{ secrets.USDC_CONTRACT_ADDRESS }}
           ALPACA_API_KEY:          ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
-        run: python oracle/oracle_service.py --action rebalance
-
+        run: |
+          if [ "$(date +%d)" = "01" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "=== 1st of month: running full rebalance ==="
+            python oracle/oracle_service.py --action rebalance
+          else
+            echo "=== Daily NAV update only ==="
+            python oracle/oracle_service.py --action nav
+          fi
