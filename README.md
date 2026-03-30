@@ -6,6 +6,19 @@
 
 ---
 
+## 回測績效（真實結果）
+
+| 策略 | 總報酬 | 年化報酬 | 年化波動率 | Sharpe | Max Drawdown |
+|------|--------|----------|------------|--------|--------------|
+| **Black-Litterman** | **+6,052%** | **53.28%** | 32.02% | **1.539** | -46.41% |
+| Markowitz | +3,518% | 44.69% | 31.27% | 1.302 | -47.24% |
+| Equal Weight | +2,416% | 38.91% | 28.90% | 1.208 | -49.38% |
+| SPY Benchmark | +303% | 15.01% | 18.01% | 0.612 | -33.72% |
+
+> 回測期間：2015-01-01 至 2025-12-31（約 10 年）｜BL 策略 Sharpe 1.539，年化 Alpha 87.20%，總報酬為 SPY 的 20 倍
+
+---
+
 ## 系統架構
 
 ```
@@ -55,29 +68,71 @@ Polygon Amoy 智能合約（記錄 NAV、發行/贖回 M7F 代幣）
 
 ```
 black_litterman_project/
-├── src/                        # 策略核心
-│   ├── black_litterman.py      # BL 模型
-│   ├── llm_view_generator.py   # Claude LLM 觀點生成
-│   ├── data_collection.py      # yfinance 數據收集
-│   ├── backtest_engine.py      # 回測引擎
-│   └── performance_metrics.py  # 績效分析
-├── oracle/                     # Oracle 服務
-│   ├── oracle_service.py       # 主服務（NAV + rebalance）
-│   ├── alpaca_trader.py        # Alpaca 模擬倉整合
-│   ├── nav_calculator.py       # NAV 計算
-│   └── scheduler.py            # 本地排程（可選）
-├── contracts/                  # 智能合約
-│   ├── RWAFund.sol             # 主合約（M7F 代幣）
-│   └── mocks/MockUSDC.sol      # 測試 USDC
-├── frontend/                   # 前端
-│   └── src/                    # React 組件
-├── scripts/                    # Hardhat 腳本
-│   ├── deploy.js               # 部署合約
-│   └── interact.js             # 互動測試
-├── .github/workflows/          # GitHub Actions
-│   └── monthly_rebalance.yml   # 每月自動 rebalance
-├── .env.example                # 環境變數範例
-└── requirements.txt            # Python 依賴
+│
+├── README.md                          # 專案總覽（本文件）
+├── QUICKSTART.md                      # 快速開始指南
+├── TECHNICAL_DOCUMENTATION.md        # 完整技術文件
+├── requirements.txt                   # Python 依賴
+├── package.json                       # Node 依賴（Hardhat）
+├── hardhat.config.js                  # Hardhat 設定（Polygon Amoy）
+├── .env.example                       # 環境變數範例
+├── .gitignore
+│
+├── src/                               # 策略核心
+│   ├── black_litterman.py             # Black-Litterman 模型
+│   ├── llm_view_generator.py          # Claude LLM 觀點生成
+│   ├── data_collection.py             # yfinance 數據收集
+│   ├── backtest_engine.py             # 回測引擎
+│   ├── performance_metrics.py         # 績效分析
+│   └── utils.py                       # 工具函數
+│
+├── oracle/                            # Oracle 服務
+│   ├── oracle_service.py              # 主服務（rebalance + NAV）
+│   ├── alpaca_trader.py               # Alpaca Paper Trading 整合
+│   ├── nav_calculator.py              # NAV 計算邏輯
+│   └── scheduler.py                   # 本地排程（備用）
+│
+├── contracts/                         # Solidity 智能合約
+│   ├── RWAFund.sol                    # 主合約（M7F 代幣、NAV、申購贖回）
+│   └── mocks/
+│       └── MockUSDC.sol               # 測試網 USDC（含 faucet）
+│
+├── scripts/                           # Hardhat 腳本
+│   ├── deploy.js                      # 部署合約到 Polygon Amoy
+│   └── interact.js                    # 互動測試腳本
+│
+├── test/                              # 合約測試
+│   └── RWAFund.test.js                # 25 個 Hardhat 測試
+│
+├── frontend/                          # 前端（React + Vite）
+│   ├── netlify.toml                   # Netlify 部署設定
+│   ├── package.json
+│   └── src/
+│       ├── App.jsx
+│       ├── constants/
+│       │   └── contracts.js           # 合約地址 + ABI
+│       ├── hooks/
+│       │   ├── useWallet.js           # MetaMask 連接
+│       │   └── useFund.js             # 合約讀寫（含 gas 設定）
+│       └── components/
+│           ├── Header.jsx             # 錢包連接按鈕
+│           ├── StatCard.jsx           # NAV / AUM / 發行量
+│           ├── NAVChart.jsx           # NAV 歷史折線圖
+│           ├── WeightsChart.jsx       # 持倉權重長條圖
+│           ├── UserPosition.jsx       # 用戶餘額 + 領水龍頭
+│           ├── SubscribeForm.jsx      # 申購表單
+│           └── RedeemForm.jsx         # 贖回表單
+│
+├── .github/
+│   └── workflows/
+│       └── monthly_rebalance.yml      # 每月1號自動 rebalance
+│
+├── configs/
+│   └── config.yaml                    # 策略參數設定
+│
+├── data/                              # 數據緩存（gitignored）
+├── results/                           # 回測結果（gitignored）
+└── logs/                              # 執行日誌（gitignored）
 ```
 
 ---
@@ -94,11 +149,30 @@ black_litterman_project/
 - 初始 NAV：$100 USDC/token
 - 申購/贖回手續費：0.5%
 
+> ⚠️ 每位使用者需自行部署合約並使用自己的 ORACLE_ROLE 錢包，詳見 [QUICKSTART.md](./QUICKSTART.md)
+
+---
+
+## 完成度
+
+| 組件 | 狀態 |
+|------|------|
+| BL 模型 | ✅ |
+| Claude LLM 觀點生成 | ✅ |
+| 回測引擎（無前視偏差） | ✅ |
+| Alpaca 模擬倉整合 | ✅ |
+| 智能合約（Polygon Amoy） | ✅ |
+| Oracle 服務 | ✅ |
+| 前端（Netlify） | ✅ |
+| GitHub Actions 自動化 | ✅ |
+
 ---
 
 ## 快速開始
 
 詳見 [QUICKSTART.md](./QUICKSTART.md)
+
+完整技術文件詳見 [TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md)
 
 ---
 

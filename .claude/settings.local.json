@@ -6,7 +6,21 @@
       "Bash(pip install:*)",
       "Bash(pip show:*)",
       "Bash(node -e \":*)",
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(grep -E \"\\\\.env$|\\\\.env\\\\.\")",
+      "Bash(git -C /Users/felixlokin317/Desktop/black_litterman_project ls-files --others --exclude-standard)",
+      "Bash(git -C /Users/felixlokin317/Desktop/black_litterman_project ls-files .gitignore)",
+      "Bash(grep -rn \"TODO\\\\|FIXME\\\\|BUG\\\\|HACK\" /Users/felixlokin317/Desktop/black_litterman_project --include=*.py --include=*.sol --include=*.js)",
+      "Bash(python3 -m py_compile /Users/felixlokin317/Desktop/black_litterman_project/oracle/oracle_service.py)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(grep -r \"news\\\\|非結構\\\\|unstructured\" /Users/felixlokin317/Desktop/black_litterman_project/*.md)",
+      "Bash(python3:*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/felixlokin317/Desktop/black_litterman_project/**)",
+      "Bash(done)"
     ]
   }
 }
