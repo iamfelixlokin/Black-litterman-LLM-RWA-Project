@@ -20,7 +20,8 @@ export default function App() {
     ? (liveNav.equity / 100_000) * 100
     : fundInfo?.nav;
 
-  const fundReturn = displayNav != null ? ((displayNav / 100 - 1) * 100) : null;
+  const fundReturn    = displayNav != null ? ((displayNav / 100 - 1) * 100) : null;
+  const fundReturnAmt = displayNav != null ? (displayNav - 100) : null;
 
   // Use live Alpaca positions for actual weights; fall back to contract target weights
   const displayAssets = (liveNav?.positions?.length > 0)
@@ -67,6 +68,7 @@ export default function App() {
           <StatCard
             label="Fund Return"
             value={liveNavLoading ? "⏳ Loading..." : fundReturn != null ? `${fundReturn.toFixed(2)}%` : "—"}
+            sub={!liveNavLoading && fundReturnAmt != null ? `${fundReturnAmt >= 0 ? "+" : ""}$${fundReturnAmt.toFixed(4)} / token` : ""}
             positive={!liveNavLoading && fundReturn != null && fundReturn >= 0}
             negative={!liveNavLoading && fundReturn != null && fundReturn < 0}
           />
