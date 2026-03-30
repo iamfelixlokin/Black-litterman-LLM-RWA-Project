@@ -13,7 +13,14 @@ export default function App() {
   const wallet = useWallet();
   const fund   = useFund(wallet.signer, wallet.address);
 
-  const { fundInfo, userInfo, assets, navHistory, loading, liveNavLoading } = fund;
+  const { fundInfo, userInfo, assets, navHistory, loading, liveNavLoading, liveNav } = fund;
+
+  // Always prefer live Alpaca NAV when available, even after wallet connect refresh
+  const displayNav = liveNav && !liveNavLoading
+    ? (liveNav.equity / 100_000) * 100
+    : fundInfo?.nav;
+
+  const fundReturn = displayNav != null ? ((displayNav / 100 - 1) * 100) : null;
 
   const fmtDate = (ts) =>
     ts ? new Date(ts * 1000).toLocaleString() : "Never";
@@ -35,7 +42,7 @@ export default function App() {
         <section className={styles.statsRow}>
           <StatCard
             label="NAV / Token"
-            value={liveNavLoading ? "⏳ Loading..." : fundInfo ? `$${fundInfo.nav.toFixed(4)}` : "—"}
+            value={liveNavLoading ? "⏳ Loading..." : displayNav != null ? `$${displayNav.toFixed(4)}` : "—"}
             sub="USDC per M7F"
             highlight
           />
@@ -51,8 +58,9 @@ export default function App() {
           />
           <StatCard
             label="Fund Return"
-            value={liveNavLoading ? "⏳ Loading..." : fundInfo ? `${((fundInfo.nav / 100 - 1) * 100).toFixed(2)}%` : "—"}
-            sub={`vs $100 initial`}
+            value={liveNavLoading ? "⏳ Loading..." : fundReturn != null ? `${fundReturn.toFixed(2)}%` : "—"}
+            positive={!liveNavLoading && fundReturn != null && fundReturn >= 0}
+            negative={!liveNavLoading && fundReturn != null && fundReturn < 0}
           />
         </section>
 
