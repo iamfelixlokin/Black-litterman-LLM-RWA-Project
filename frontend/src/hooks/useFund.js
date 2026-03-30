@@ -101,11 +101,9 @@ export function useFund(signer, address) {
           const returnPct   = ((navPerToken - 100) / 100) * 100;
           return { ...prev, nav: navPerToken, returnPct };
         });
+        setLiveNavLoading(false); // only stop loading when real data arrives
       }
     } catch (_) {}
-    finally {
-      setLiveNavLoading(false);
-    }
   }, []);
 
   useEffect(() => {
