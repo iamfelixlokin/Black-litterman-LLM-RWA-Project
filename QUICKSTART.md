@@ -42,18 +42,36 @@ ORACLE_ADDRESS=你的錢包地址（0x 開頭）
 ALPACA_API_KEY=你的Alpaca key
 ALPACA_SECRET_KEY=你的Alpaca secret
 
-# 已部署的合約地址（Polygon Amoy），直接複製貼上即可
-FUND_CONTRACT_ADDRESS=0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5
-USDC_CONTRACT_ADDRESS=0x5c08Ebb0129799cC75A67d71B2639989C3b50be8
-
-# 前端用（Vite 必須加 VITE_ 前綴）
-VITE_FUND_ADDRESS=0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5
-VITE_USDC_ADDRESS=0x5c08Ebb0129799cC75A67d71B2639989C3b50be8
+# 部署合約後填入（見步驟 2b）
+FUND_CONTRACT_ADDRESS=
+USDC_CONTRACT_ADDRESS=
 ```
 
 > ⚠️ **私鑰說明**：DEPLOYER_PRIVATE_KEY / ORACLE_PRIVATE_KEY 填的是私鑰（64位 hex 字串），**不是錢包地址**。請勿混淆。
 
 > 💧 **取 Amoy MATIC**：Oracle 錢包需持有少量 MATIC 支付 gas，前往 [Polygon Faucet](https://faucet.polygon.technology/) 輸入錢包地址免費領取。
+
+---
+
+## 2b. 部署智能合約
+
+每位使用者必須自行部署合約，才能擁有 ORACLE_ROLE 權限更新鏈上數據。
+
+```bash
+npx hardhat run scripts/deploy.js --network amoy
+```
+
+部署成功後輸出類似：
+```
+MockUSDC deployed → 0xABC...
+RWAFund deployed  → 0xDEF...
+```
+
+將兩個地址填回 `.env`：
+```
+FUND_CONTRACT_ADDRESS=0xDEF...
+USDC_CONTRACT_ADDRESS=0xABC...
+```
 
 ---
 
