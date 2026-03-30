@@ -12,7 +12,7 @@ export function useFund(signer, address) {
   const [navHistory, setNavHistory]   = useState([]);
   const [liveNav, setLiveNav]         = useState(null); // real-time from Alpaca
   const [loading, setLoading]         = useState(false);
-  const [liveNavLoading, setLiveNavLoading] = useState(true); // true until Alpaca responds
+  const [liveNavLoading, setLiveNavLoading] = useState(true); // true until second Alpaca fetch
   const intervalRef                   = useRef(null);
 
   const fundRead = new Contract(FUND_ADDRESS, FUND_ABI, readProvider);
@@ -101,9 +101,14 @@ export function useFund(signer, address) {
           const returnPct   = ((navPerToken - 100) / 100) * 100;
           return { ...prev, nav: navPerToken, returnPct };
         });
-        setLiveNavLoading(false); // only stop loading when real data arrives
       }
     } catch (_) {}
+  }, []);
+
+  // Keep loading until second Alpaca fetch (REFRESH_INTERVAL + 1s buffer)
+  useEffect(() => {
+    const timer = setTimeout(() => setLiveNavLoading(false), REFRESH_INTERVAL + 1_000);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
