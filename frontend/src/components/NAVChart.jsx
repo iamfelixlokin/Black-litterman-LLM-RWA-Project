@@ -24,7 +24,7 @@ export default function NAVChart({ history }) {
 
   return (
     <div className={styles.panel}>
-      <h3 className={styles.title}>NAV History (USDC / token)</h3>
+      <h3 className={styles.title}>NAV History (USDC / token) <span style={{ fontSize:11, color:"var(--muted)", fontWeight:400 }}>· 每日更新一次</span></h3>
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
