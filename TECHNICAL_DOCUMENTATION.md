@@ -869,6 +869,3 @@ Netlify 環境變數（在 Netlify Dashboard 設定）：
 - `ALPACA_SECRET_KEY`
 
 ---
-
-*文檔最後更新：2026年3月*
-*作者：Felix Lokin*
