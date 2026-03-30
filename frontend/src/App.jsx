@@ -41,7 +41,7 @@ export default function App() {
           />
           <StatCard
             label="Total AUM"
-            value={fundInfo ? `$${fundInfo.totalAUM.toLocaleString("en", { maximumFractionDigits: 2 })}` : "—"}
+            value={liveNavLoading ? "⏳ Loading..." : fundInfo ? `$${fundInfo.totalAUM.toLocaleString("en", { maximumFractionDigits: 2 })}` : "—"}
             sub="USDC"
           />
           <StatCard
