@@ -22,6 +22,14 @@ export default function App() {
 
   const fundReturn = displayNav != null ? ((displayNav / 100 - 1) * 100) : null;
 
+  // Use live Alpaca positions for actual weights; fall back to contract target weights
+  const displayAssets = (liveNav?.positions?.length > 0)
+    ? liveNav.positions.map(p => ({
+        name:   p.symbol,
+        weight: (p.market_value / liveNav.equity) * 100,
+      }))
+    : assets;
+
   const fmtDate = (ts) =>
     ts ? new Date(ts * 1000).toLocaleString() : "Never";
 
@@ -67,7 +75,7 @@ export default function App() {
         {/* ── Charts row ── */}
         <section className={styles.chartsRow}>
           <NAVChart history={navHistory} />
-          <WeightsChart assets={assets} />
+          <WeightsChart assets={displayAssets} />
         </section>
 
         {/* ── Bottom row: position + trade forms ── */}
