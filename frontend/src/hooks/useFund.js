@@ -62,11 +62,20 @@ export function useFund(signer, address) {
         });
       }
 
-      // NAV history from events (last 200 blocks)
+      // NAV history from events — query in 50k-block chunks to stay within Alchemy limits
       const filter  = fundRead.filters.NAVUpdated();
       const latest  = await readProvider.getBlockNumber();
-      const events  = await fundRead.queryFilter(filter, Math.max(0, latest - 2000000), latest);
-      const history = events.map((e) => ({
+      const CHUNK   = 50_000;
+      const LOOKBACK = 6; // 6 chunks × 50k blocks ≈ 7 days
+      const chunks  = Array.from({ length: LOOKBACK }, (_, i) => [
+        Math.max(0, latest - (i + 1) * CHUNK),
+        latest - i * CHUNK,
+      ]);
+      const results = await Promise.all(
+        chunks.map(([from, to]) => fundRead.queryFilter(filter, from, to))
+      );
+      const allEvents = results.flat().sort((a, b) => a.blockNumber - b.blockNumber);
+      const history = allEvents.map((e) => ({
         time:  new Date(Number(e.args[2]) * 1000).toLocaleDateString(),
         nav:   Number(e.args[0]) / 1e6,
         aum:   Number(e.args[1]) / 1e6,
