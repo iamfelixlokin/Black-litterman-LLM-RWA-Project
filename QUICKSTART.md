@@ -120,11 +120,12 @@ npm run dev
    - **Publish directory**: `frontend/dist`
 4. 在 Netlify → **Site settings → Environment variables** 加入：
    ```
-   VITE_FUND_ADDRESS=0xa6a0a939b194AbDCedAAD78ce8e4dd78641a8Ec5
-   VITE_USDC_ADDRESS=0x5c08Ebb0129799cC75A67d71B2639989C3b50be8
+   VITE_FUND_ADDRESS=你部署的 RWAFund 地址（步驟 2b）
+   VITE_USDC_ADDRESS=你部署的 MockUSDC 地址（步驟 2b）
    ALPACA_API_KEY=你的Alpaca key
    ALPACA_SECRET_KEY=你的Alpaca secret
    ```
+   > ⚠️ 若未設定 `VITE_FUND_ADDRESS` / `VITE_USDC_ADDRESS`，Netlify 會 fallback 到 repo 內的預設地址，前端會連到別人的合約。
 5. Deploy → 取得 `https://你的站名.netlify.app`
 
 ---
