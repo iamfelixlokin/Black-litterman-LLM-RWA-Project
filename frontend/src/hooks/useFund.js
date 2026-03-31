@@ -101,16 +101,14 @@ export function useFund(signer, address) {
           const returnPct   = ((navPerToken - 100) / 100) * 100;
           return { ...prev, nav: navPerToken, returnPct };
         });
+        setLiveNavLoading(false);
       }
-    } catch (_) {}
+    } catch (_) {
+      setLiveNavLoading(false);
+    }
   }, []);
 
-  // Keep loading until second Alpaca fetch (REFRESH_INTERVAL + 1s buffer)
-  useEffect(() => {
-    const timer = setTimeout(() => setLiveNavLoading(false), REFRESH_INTERVAL + 1_000);
-    return () => clearTimeout(timer);
-  }, []);
-
+  // Fetch immediately on load, then every 5 minutes
   useEffect(() => {
     fetchLiveNav();
     intervalRef.current = setInterval(fetchLiveNav, REFRESH_INTERVAL);
