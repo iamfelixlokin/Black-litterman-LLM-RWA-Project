@@ -3,7 +3,7 @@ import { Contract, JsonRpcProvider, formatUnits } from "ethers";
 import { FUND_ADDRESS, USDC_ADDRESS, FUND_ABI, USDC_ABI, RPC_URL } from "../constants/contracts.js";
 
 const readProvider = new JsonRpcProvider(RPC_URL);
-const REFRESH_INTERVAL = 30_000; // 30 seconds
+const REFRESH_INTERVAL = 300_000; // 5 minutes
 
 export function useFund(signer, address) {
   const [fundInfo, setFundInfo]       = useState(null);
