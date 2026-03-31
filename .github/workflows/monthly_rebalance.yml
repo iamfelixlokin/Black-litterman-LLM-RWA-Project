@@ -52,7 +52,7 @@ jobs:
               )
           )
           # First entry in calendar = first trading day of month
-          first_trading_day = calendar[0].date.date() if calendar else None
+          first_trading_day = calendar[0].date if calendar else None
           is_first = (first_trading_day == today)
           print(f"Today: {today}, First trading day of month: {first_trading_day}, Is first: {is_first}")
           with open(os.environ["GITHUB_ENV"], "a") as f:
