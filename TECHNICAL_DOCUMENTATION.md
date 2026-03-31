@@ -763,7 +763,7 @@ jobs:
 
 ### 13.1 為何選擇 Polygon Amoy？
 
-- **低氣體費用**：Polygon L2 的交易成本遠低於以太坊主網
+- **低 Gas Fee**：Polygon L2 的交易成本遠低於以太坊主網
 - **EVM 相容**：完全相容以太坊工具鏈（Hardhat、ethers.js）
 - **測試網 MATIC 免費**：易於開發測試
 - **官方測試網**：Polygon 官方支援的測試環境
