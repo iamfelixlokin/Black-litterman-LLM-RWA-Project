@@ -658,9 +658,9 @@ exports.handler = async () => {
 };
 ```
 
-### 10.3 氣體設定
+### 10.3 Gas 設定
 
-所有前端交易使用固定的 EIP-1559 氣體參數，以確保在 Polygon Amoy 上順利執行：
+所有前端交易使用固定的 EIP-1559 Gas 參數，以確保在 Polygon Amoy 上順利執行：
 
 ```javascript
 const GAS_OPTS = {
