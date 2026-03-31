@@ -10,7 +10,7 @@ export default function WeightsChart({ assets }) {
   if (!assets || assets.length === 0) {
     return (
       <div className={styles.panel}>
-        <h3 className={styles.title}>Portfolio Weights <span style={{ fontSize:11, color:"var(--muted)", fontWeight:400 }}>· updates daily</span></h3>
+        <h3 className={styles.title}>Portfolio Weights <span style={{ fontSize:11, color:"var(--muted)", fontWeight:400 }}>· updates every 5 min</span></h3>
         <p style={{ color:"var(--muted)", marginTop:16 }}>No rebalance data yet</p>
       </div>
     );
@@ -18,7 +18,7 @@ export default function WeightsChart({ assets }) {
 
   return (
     <div className={styles.panel}>
-      <h3 className={styles.title}>Portfolio Weights <span style={{ fontSize:11, color:"var(--muted)", fontWeight:400 }}>· updates daily</span></h3>
+      <h3 className={styles.title}>Portfolio Weights <span style={{ fontSize:11, color:"var(--muted)", fontWeight:400 }}>· updates every 5 min</span></h3>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={assets} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />

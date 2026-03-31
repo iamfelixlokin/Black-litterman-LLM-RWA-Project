@@ -57,13 +57,13 @@ export default function App() {
           <StatCard
             label="NAV / Token"
             value={liveNavLoading ? "⏳ Loading..." : displayNav != null ? `$${displayNav.toFixed(4)}` : "—"}
-            sub="USDC per M7F"
+            sub="USDC per M7F · updates every 5 min"
             highlight
           />
           <StatCard
             label="Total AUM"
             value={liveNavLoading ? "⏳ Loading..." : (fundInfo && displayNav != null) ? `$${(fundInfo.totalSupply * displayNav).toLocaleString("en", { maximumFractionDigits: 2 })}` : "—"}
-            sub="USDC"
+            sub="USDC · updates every 5 min"
           />
           <StatCard
             label="Tokens Issued"
@@ -76,6 +76,7 @@ export default function App() {
             subValue={!liveNavLoading && fundReturnAmt != null ? `${fundReturnAmt >= 0 ? "+" : ""}$${fundReturnAmt.toLocaleString("en", { maximumFractionDigits: 2 })}` : ""}
             positive={!liveNavLoading && fundReturn != null && fundReturn >= 0}
             negative={!liveNavLoading && fundReturn != null && fundReturn < 0}
+            sub="updates every 5 min"
           />
         </section>
 
