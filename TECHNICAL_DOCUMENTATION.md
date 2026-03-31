@@ -141,7 +141,7 @@ MAG7 Fund 是一個結合量化金融與區塊鏈技術的 RWA（Real World Asse
     - updateNAV(newNAV, totalAUM)
           │
           ▼
-[7] 前端讀取合約 + 每 30 秒從 Netlify Function 更新 NAV
+[7] 前端讀取合約 + 每 5 分鐘從 Netlify Function 更新 NAV
 ```
 
 ---
@@ -632,7 +632,7 @@ def rebalance(self, target_weights: Dict[str, float]):
 
 ### 10.2 即時 NAV 更新
 
-前端每 30 秒呼叫 Netlify Function，從 Alpaca 取得即時 portfolio 市值：
+前端每 5 分鐘呼叫 Netlify Function，從 Alpaca 取得即時 portfolio 市值：
 
 ```javascript
 // frontend/netlify/functions/nav.js
