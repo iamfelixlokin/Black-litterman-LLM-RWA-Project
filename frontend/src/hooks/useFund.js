@@ -65,7 +65,7 @@ export function useFund(signer, address) {
       // NAV history from events (last 200 blocks)
       const filter  = fundRead.filters.NAVUpdated();
       const latest  = await readProvider.getBlockNumber();
-      const events  = await fundRead.queryFilter(filter, Math.max(0, latest - 50000), latest);
+      const events  = await fundRead.queryFilter(filter, Math.max(0, latest - 2000000), latest);
       const history = events.map((e) => ({
         time:  new Date(Number(e.args[2]) * 1000).toLocaleDateString(),
         nav:   Number(e.args[0]) / 1e6,

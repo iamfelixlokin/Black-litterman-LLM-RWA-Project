@@ -40,7 +40,7 @@ export default function NAVChart({ history }) {
             dataKey="nav"
             stroke="var(--accent)"
             strokeWidth={2}
-            dot={false}
+            dot={{ r: 3, fill:"var(--accent)" }}
             activeDot={{ r: 5, fill:"var(--accent)" }}
           />
         </LineChart>
