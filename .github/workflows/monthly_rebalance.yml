@@ -1,9 +1,9 @@
 name: Monthly Rebalance & NAV Update
 
 on:
-  # 每天 09:30 UTC 執行（美股開盤前）
+  # 每天 UTC 15:00 執行（台灣時間 23:00，美東 10-11 AM 開盤中段）
   schedule:
-    - cron: '30 9 * * 1-5'   # 週一到週五（美股交易日）
+    - cron: '0 15 * * 1-5'   # 週一到週五（美股交易日）
   # 手動觸發（測試用）
   workflow_dispatch:
 
