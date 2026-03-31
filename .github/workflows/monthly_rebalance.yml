@@ -26,7 +26,40 @@ jobs:
           pip install -r requirements.txt
           pip install web3 alpaca-py
 
-      - name: Monthly Rebalance (1st of month only)
+      - name: Decide action (rebalance on first trading day of month)
+        env:
+          ALPACA_API_KEY:    ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+        run: |
+          python - <<'EOF'
+          import os, sys
+          from datetime import date
+          from alpaca.trading.client import TradingClient
+          from alpaca.trading.requests import GetCalendarRequest
+
+          today = date.today()
+          first = today.replace(day=1)
+
+          client = TradingClient(
+              os.environ["ALPACA_API_KEY"],
+              os.environ["ALPACA_SECRET_KEY"],
+              paper=True,
+          )
+          calendar = client.get_calendar(
+              filters=GetCalendarRequest(
+                  start=first.isoformat(),
+                  end=today.isoformat(),
+              )
+          )
+          # First entry in calendar = first trading day of month
+          first_trading_day = calendar[0].date.date() if calendar else None
+          is_first = (first_trading_day == today)
+          print(f"Today: {today}, First trading day of month: {first_trading_day}, Is first: {is_first}")
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write(f"ORACLE_ACTION={'rebalance' if is_first else 'nav'}\n")
+          EOF
+
+      - name: Run Oracle
         env:
           ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
           ALCHEMY_RPC_URL:         ${{ secrets.ALCHEMY_RPC_URL }}
@@ -36,8 +69,11 @@ jobs:
           ALPACA_API_KEY:          ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY:       ${{ secrets.ALPACA_SECRET_KEY }}
         run: |
-          if [ "$(date +%d)" = "01" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "=== 1st of month: running full rebalance ==="
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "=== Manual trigger: running full rebalance ==="
+            python oracle/oracle_service.py --action rebalance
+          elif [ "$ORACLE_ACTION" = "rebalance" ]; then
+            echo "=== First trading day of month: running full rebalance ==="
             python oracle/oracle_service.py --action rebalance
           else
             echo "=== Daily NAV update only ==="
