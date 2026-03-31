@@ -62,19 +62,22 @@ export function useFund(signer, address) {
         });
       }
 
-      // NAV history from events — query in 50k-block chunks to stay within Alchemy limits
-      const filter  = fundRead.filters.NAVUpdated();
-      const latest  = await readProvider.getBlockNumber();
-      const CHUNK   = 50_000;
-      const LOOKBACK = 6; // 6 chunks × 50k blocks ≈ 7 days
-      const chunks  = Array.from({ length: LOOKBACK }, (_, i) => [
+      // NAV history from events — 2000-block chunks (Alchemy Polygon Amoy limit)
+      const filter   = fundRead.filters.NAVUpdated();
+      const latest   = await readProvider.getBlockNumber();
+      const CHUNK    = 2_000;
+      const LOOKBACK = 100; // 100 × 2000 blocks ≈ 5 days
+      const chunks   = Array.from({ length: LOOKBACK }, (_, i) => [
         Math.max(0, latest - (i + 1) * CHUNK),
         latest - i * CHUNK,
       ]);
-      const results = await Promise.all(
+      const results = await Promise.allSettled(
         chunks.map(([from, to]) => fundRead.queryFilter(filter, from, to))
       );
-      const allEvents = results.flat().sort((a, b) => a.blockNumber - b.blockNumber);
+      const allEvents = results
+        .filter(r => r.status === "fulfilled")
+        .flatMap(r => r.value)
+        .sort((a, b) => a.blockNumber - b.blockNumber);
       const history = allEvents.map((e) => ({
         time:  new Date(Number(e.args[2]) * 1000).toLocaleDateString(),
         nav:   Number(e.args[0]) / 1e6,
