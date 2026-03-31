@@ -73,6 +73,14 @@ FUND_CONTRACT_ADDRESS=0xDEF...
 USDC_CONTRACT_ADDRESS=0xABC...
 ```
 
+同時在 `frontend/` 目錄下建立 `frontend/.env`，填入相同地址（前端用）：
+```
+VITE_FUND_ADDRESS=0xDEF...
+VITE_USDC_ADDRESS=0xABC...
+```
+
+> ⚠️ 若未設定 `VITE_FUND_ADDRESS`，前端會 fallback 到預設地址，連到別人的合約。
+
 ---
 
 ## 3. 手動執行 Rebalance
