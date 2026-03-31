@@ -160,6 +160,12 @@ class NAVCalculator:
         raw_weights: np.ndarray = result["weights"]
         assets: List[str]       = result["asset_names"]
 
+        if np.any(np.isnan(raw_weights)):
+            raise RuntimeError(
+                "BL optimization returned NaN weights — price data may be empty or invalid. "
+                "Aborting rebalance to avoid unintended equal-weight allocation."
+            )
+
         weight_bps = [int(w * 10_000) for w in raw_weights]
 
         # Adjust rounding so sum == exactly 10_000

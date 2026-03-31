@@ -59,7 +59,13 @@ class DataCollector:
         pd.DataFrame : Price data (adjusted close)
         """
         logger.info(f"Fetching price data from {start_date} to {end_date}")
-        
+
+        # Use a per-process temp cache dir to avoid SQLite lock conflicts in CI
+        import tempfile
+        cache_dir = os.path.join(tempfile.gettempdir(), f"yf_cache_{os.getpid()}")
+        os.makedirs(cache_dir, exist_ok=True)
+        os.environ["YFINANCE_CACHE_DIR"] = cache_dir
+
         try:
             # 批量下載所有股票（更快更穩定）
             data = yf.download(
