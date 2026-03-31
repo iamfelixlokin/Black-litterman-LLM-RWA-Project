@@ -31,7 +31,9 @@ export default function WeightsChart({ assets }) {
           <Tooltip
             formatter={(v) => [`${v.toFixed(2)}%`, "Weight"]}
             contentStyle={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:8 }}
-            labelStyle={{ color:"var(--muted)" }}
+            labelStyle={{ color:"var(--fg)" }}
+            itemStyle={{ color:"var(--fg)" }}
+            cursor={{ fill:"rgba(255,255,255,0.05)" }}
           />
           <Bar dataKey="weight" radius={[4,4,0,0]}>
             {assets.map((_, i) => (
