@@ -40,23 +40,23 @@ exports.handler = async () => {
         }))
       : [];
 
+    // 把 portfolio history 轉成 { time, nav } 格式
+    const navHistory = [];
+    if (history && Array.isArray(history.timestamp)) {
+      history.timestamp.forEach((ts, i) => {
+        const equity = history.equity[i];
+        if (equity && equity > 0) {
+          navHistory.push({
+            time: new Date(ts * 1000).toLocaleDateString(),
+            nav:  (equity / 100_000) * 100,
+          });
+        }
+      });
+    }
+
     return {
       statusCode: 200,
       headers:    cors,
-      // 把 portfolio history 轉成 { time, nav } 格式
-      const navHistory = [];
-      if (history && Array.isArray(history.timestamp)) {
-        history.timestamp.forEach((ts, i) => {
-          const equity = history.equity[i];
-          if (equity && equity > 0) {
-            navHistory.push({
-              time: new Date(ts * 1000).toLocaleDateString(),
-              nav:  (equity / 100_000) * 100,
-            });
-          }
-        });
-      }
-
       body: JSON.stringify({
         equity:     parseFloat(account.equity),
         cash:       parseFloat(account.cash),
