@@ -78,11 +78,17 @@ export function useFund(signer, address) {
         .filter(r => r.status === "fulfilled")
         .flatMap(r => r.value)
         .sort((a, b) => a.blockNumber - b.blockNumber);
-      const history = allEvents.map((e) => ({
-        time:  new Date(Number(e.args[2]) * 1000).toLocaleDateString(),
-        nav:   Number(e.args[0]) / 1e6,
-        aum:   Number(e.args[1]) / 1e6,
-      }));
+      // 每天只保留最後一筆（events 已按 blockNumber 排序，後面的會覆蓋前面的）
+      const dailyMap = new Map();
+      for (const e of allEvents) {
+        const date = new Date(Number(e.args[2]) * 1000).toLocaleDateString();
+        dailyMap.set(date, {
+          time: date,
+          nav:  Number(e.args[0]) / 1e6,
+          aum:  Number(e.args[1]) / 1e6,
+        });
+      }
+      const history = Array.from(dailyMap.values());
       if (history.length > 0) setNavHistory(history);
 
     } catch (err) {
