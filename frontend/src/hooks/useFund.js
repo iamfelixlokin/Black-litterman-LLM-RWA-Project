@@ -62,43 +62,8 @@ export function useFund(signer, address) {
         });
       }
 
-      // NAV history from events
-      // Alchemy Polygon Amoy 限制每次最多 2000 blocks，分批送避免 rate limit
-      const filter     = fundRead.filters.NAVUpdated();
-      const latest     = await readProvider.getBlockNumber();
-      const CHUNK      = 2_000;
-      const LOOKBACK   = 75;  // 75 × 2000 = 150,000 blocks ≈ 3.5 天
-      const BATCH_SIZE = 15;  // 每批 15 個，共 5 輪
-
-      const chunks = Array.from({ length: LOOKBACK }, (_, i) => [
-        Math.max(0, latest - (i + 1) * CHUNK),
-        latest - i * CHUNK,
-      ]);
-
-      const allEvents = [];
-      for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
-        const batch   = chunks.slice(i, i + BATCH_SIZE);
-        const results = await Promise.allSettled(
-          batch.map(([from, to]) => fundRead.queryFilter(filter, from, to))
-        );
-        results
-          .filter(r => r.status === "fulfilled")
-          .flatMap(r => r.value)
-          .forEach(e => allEvents.push(e));
-      }
-      allEvents.sort((a, b) => a.blockNumber - b.blockNumber);
-      // 每天只保留最後一筆（events 已按 blockNumber 排序，後面的會覆蓋前面的）
-      const dailyMap = new Map();
-      for (const e of allEvents) {
-        const date = new Date(Number(e.args[2]) * 1000).toLocaleDateString();
-        dailyMap.set(date, {
-          time: date,
-          nav:  Number(e.args[0]) / 1e6,
-          aum:  Number(e.args[1]) / 1e6,
-        });
-      }
-      const history = Array.from(dailyMap.values());
-      if (history.length > 0) setNavHistory(history);
+      // NAV history — Alchemy free tier only allows 10-block range for eth_getLogs,
+      // so we can't query on-chain events. Instead, read from localStorage.
 
     } catch (err) {
       console.error("useFund refresh:", err);
@@ -122,17 +87,36 @@ export function useFund(signer, address) {
           timestamp: data.timestamp,
         });
         // NAV tracks Alpaca performance: (current equity / initial $100k) × $100
+        const navPerToken = (data.equity / 100_000) * 100;
+        const returnPct   = ((navPerToken - 100) / 100) * 100;
         setFundInfo(prev => {
           if (!prev) return prev;
-          const navPerToken = (data.equity / 100_000) * 100;
-          const returnPct   = ((navPerToken - 100) / 100) * 100;
           return { ...prev, nav: navPerToken, returnPct };
         });
         setLiveNavLoading(false);
+
+        // ── 每天存一筆 NAV 到 localStorage（作為圖表歷史資料）──────────
+        const today = new Date().toLocaleDateString();
+        const STORAGE_KEY = "mag7_nav_history";
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        // 移除今天舊的（保留最新值），加入今天
+        const filtered = stored.filter(d => d.time !== today);
+        filtered.push({ time: today, nav: navPerToken });
+        // 只保留最近 90 天
+        filtered.sort((a, b) => new Date(a.time) - new Date(b.time));
+        const recent = filtered.slice(-90);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(recent));
+        setNavHistory(recent);
       }
     } catch (_) {
       setLiveNavLoading(false);
     }
+  }, []);
+
+  // 頁面載入時先從 localStorage 讀歷史，讓圖表馬上有資料
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("mag7_nav_history") || "[]");
+    if (stored.length > 0) setNavHistory(stored);
   }, []);
 
   // Fetch immediately on load, then every 5 minutes
