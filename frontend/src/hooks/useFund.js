@@ -95,18 +95,29 @@ export function useFund(signer, address) {
         });
         setLiveNavLoading(false);
 
-        // ── 每天存一筆 NAV 到 localStorage（作為圖表歷史資料）──────────
-        const today = new Date().toLocaleDateString();
+        // ── NAV history：優先用 Alpaca 歷史資料，否則用 localStorage ──
         const STORAGE_KEY = "mag7_nav_history";
-        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        // 移除今天舊的（保留最新值），加入今天
-        const filtered = stored.filter(d => d.time !== today);
-        filtered.push({ time: today, nav: navPerToken });
-        // 只保留最近 90 天
-        filtered.sort((a, b) => new Date(a.time) - new Date(b.time));
-        const recent = filtered.slice(-90);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(recent));
-        setNavHistory(recent);
+        const today = new Date().toLocaleDateString();
+
+        if (data.navHistory && data.navHistory.length > 0) {
+          // Alpaca 有完整歷史 → 直接用（確保今天的值是最新的）
+          const alpacaMap = new Map(data.navHistory.map(d => [d.time, d]));
+          alpacaMap.set(today, { time: today, nav: navPerToken }); // 今天用最新值
+          const merged = Array.from(alpacaMap.values())
+            .sort((a, b) => new Date(a.time) - new Date(b.time))
+            .slice(-90);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+          setNavHistory(merged);
+        } else {
+          // fallback：只存今天
+          const stored   = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+          const filtered = stored.filter(d => d.time !== today);
+          filtered.push({ time: today, nav: navPerToken });
+          filtered.sort((a, b) => new Date(a.time) - new Date(b.time));
+          const recent = filtered.slice(-90);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(recent));
+          setNavHistory(recent);
+        }
       }
     } catch (_) {
       setLiveNavLoading(false);

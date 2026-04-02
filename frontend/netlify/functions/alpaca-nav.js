@@ -15,9 +15,10 @@ exports.handler = async () => {
   };
 
   try {
-    const [accountRes, positionsRes] = await Promise.all([
+    const [accountRes, positionsRes, historyRes] = await Promise.all([
       fetch(`${BASE_URL}/account`,   { headers }),
       fetch(`${BASE_URL}/positions`, { headers }),
+      fetch(`${BASE_URL}/account/portfolio/history?period=1M&timeframe=1D`, { headers }),
     ]);
 
     if (!accountRes.ok) {
@@ -26,6 +27,7 @@ exports.handler = async () => {
 
     const account   = await accountRes.json();
     const positions = await positionsRes.json();
+    const history   = historyRes.ok ? await historyRes.json() : null;
 
     const posData = Array.isArray(positions)
       ? positions.map((p) => ({
@@ -41,11 +43,26 @@ exports.handler = async () => {
     return {
       statusCode: 200,
       headers:    cors,
+      // 把 portfolio history 轉成 { time, nav } 格式
+      const navHistory = [];
+      if (history && Array.isArray(history.timestamp)) {
+        history.timestamp.forEach((ts, i) => {
+          const equity = history.equity[i];
+          if (equity && equity > 0) {
+            navHistory.push({
+              time: new Date(ts * 1000).toLocaleDateString(),
+              nav:  (equity / 100_000) * 100,
+            });
+          }
+        });
+      }
+
       body: JSON.stringify({
-        equity:    parseFloat(account.equity),
-        cash:      parseFloat(account.cash),
-        positions: posData,
-        timestamp: Date.now(),
+        equity:     parseFloat(account.equity),
+        cash:       parseFloat(account.cash),
+        positions:  posData,
+        navHistory: navHistory,
+        timestamp:  Date.now(),
       }),
     };
   } catch (err) {
