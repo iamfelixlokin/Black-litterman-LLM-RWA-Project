@@ -26,7 +26,8 @@ export default function WeightsChart({ assets }) {
           <YAxis
             tick={{ fill:"var(--muted)", fontSize:11 }}
             tickFormatter={(v) => `${v}%`}
-            domain={[0, 35]}
+            domain={[0, 40]}
+            ticks={[0, 10, 20, 30, 40]}
           />
           <Tooltip
             formatter={(v) => [`${v.toFixed(2)}%`, "Weight"]}
