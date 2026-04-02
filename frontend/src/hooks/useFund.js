@@ -62,30 +62,23 @@ export function useFund(signer, address) {
         });
       }
 
-      // NAV history from events — 2000-block chunks, batched 5 at a time to avoid rate limits
+      // NAV history from events — 查最近 30 天，每次 10000 block，共 15 個 chunk
+      // Polygon Amoy ~2s/block → 10000 blocks ≈ 5.5 小時，15 chunks ≈ 3.5 天
       const filter   = fundRead.filters.NAVUpdated();
       const latest   = await readProvider.getBlockNumber();
-      const CHUNK    = 2_000;
-      const LOOKBACK = 100; // 100 × 2000 blocks ≈ 5 days
+      const CHUNK    = 10_000;
+      const LOOKBACK = 15;
       const chunks   = Array.from({ length: LOOKBACK }, (_, i) => [
         Math.max(0, latest - (i + 1) * CHUNK),
         latest - i * CHUNK,
       ]);
-
-      // 分批送出，每批 5 個，避免 Alchemy rate limit
-      const BATCH_SIZE = 5;
-      const allEvents = [];
-      for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
-        const batch = chunks.slice(i, i + BATCH_SIZE);
-        const results = await Promise.allSettled(
-          batch.map(([from, to]) => fundRead.queryFilter(filter, from, to))
-        );
-        results
-          .filter(r => r.status === "fulfilled")
-          .flatMap(r => r.value)
-          .forEach(e => allEvents.push(e));
-      }
-      allEvents.sort((a, b) => a.blockNumber - b.blockNumber);
+      const results = await Promise.allSettled(
+        chunks.map(([from, to]) => fundRead.queryFilter(filter, from, to))
+      );
+      const allEvents = results
+        .filter(r => r.status === "fulfilled")
+        .flatMap(r => r.value)
+        .sort((a, b) => a.blockNumber - b.blockNumber);
       // 每天只保留最後一筆（events 已按 blockNumber 排序，後面的會覆蓋前面的）
       const dailyMap = new Map();
       for (const e of allEvents) {
