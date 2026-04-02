@@ -27,7 +27,7 @@ export default function UserPosition({ userInfo, fundInfo, displayNav, onFaucet,
           <span className={styles.val}>${userInfo.usdcBalance.toFixed(2)}</span>
         </div>
         <div className={styles.item}>
-          <span className={styles.label}>Fund Return</span>
+          <span className={styles.label}>My Return</span>
           <span className={`${styles.val} ${isPos ? styles.green : styles.red}`}>
             {isPos ? "+" : ""}{pnlPct}%
           </span>
