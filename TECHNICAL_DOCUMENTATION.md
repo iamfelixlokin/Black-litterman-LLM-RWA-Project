@@ -142,6 +142,8 @@ MAG7 Fund 是一個結合量化金融與區塊鏈技術的 RWA（Real World Asse
           │
           ▼
 [7] 前端讀取合約 + 每 5 分鐘從 Netlify Function 更新 NAV
+    - 即時 NAV 從 Alpaca 帳戶股權換算
+    - 每日 NAV 歷史透過 Alpaca portfolio history API + localStorage 累積顯示（最多 90 天）
 ```
 
 ---
@@ -250,7 +252,7 @@ cov = returns.ewm(halflife=60).cov().iloc[-7:] * 252
 
 ### 4.2 上下文準備
 
-每檔股票的 LLM 輸入包含以下結構化資訊：
+每檔股票的 LLM 輸入透過 `DataCollector.prepare_llm_context()` 統一生成，包含以下結構化資訊：
 
 ```
 TICKER: AAPL
@@ -267,6 +269,8 @@ ABSOLUTE METRICS:
   30-day volatility: 24.1% annualized
   Price trend:       STRONG_UP (RSI: 68.2)
 ```
+
+> **一致性設計**：回測引擎（`BacktestEngine`）與 Oracle（`NAVCalculator._build_views()`）均呼叫同一個 `prepare_llm_context()` 函數，確保回測與線上生產環境的 LLM 輸入完全一致，避免回測過擬合特定格式但實際使用不同輸入的問題。
 
 ### 4.3 觀點生成流程
 
@@ -349,6 +353,8 @@ def prepare_llm_context(ticker, date, price_history, lookback_days=60):
     alpha_30d = (1 + stock_ret).tail(30).prod() - (1 + spy_ret).tail(30).prod()
     ...
 ```
+
+此函數由**回測引擎**與 **Oracle** 共用，確保兩者 LLM 輸入的指標計算邏輯完全相同。
 
 ---
 
@@ -632,33 +638,84 @@ def rebalance(self, target_weights: Dict[str, float]):
 
 ### 10.2 即時 NAV 更新
 
-前端每 5 分鐘呼叫 Netlify Function，從 Alpaca 取得即時 portfolio 市值：
+前端每 5 分鐘呼叫 Netlify Function（`alpaca-nav.js`），從 Alpaca 同時取得即時市值、持倉明細與近 30 天的每日 portfolio 歷史：
 
 ```javascript
-// frontend/netlify/functions/nav.js
+// frontend/netlify/functions/alpaca-nav.js
 exports.handler = async () => {
     const headers = {
-        "APCA-API-KEY-ID": process.env.ALPACA_API_KEY,
+        "APCA-API-KEY-ID":     process.env.ALPACA_API_KEY,
         "APCA-API-SECRET-KEY": process.env.ALPACA_SECRET_KEY,
     };
-    const account = await fetch("https://paper-api.alpaca.markets/v2/account", { headers });
-    const positions = await fetch("https://paper-api.alpaca.markets/v2/positions", { headers });
+
+    const [accountRes, positionsRes, historyRes] = await Promise.all([
+        fetch(`${BASE_URL}/account`,   { headers }),
+        fetch(`${BASE_URL}/positions`, { headers }),
+        // 近 1 個月、每日頻率的 portfolio equity 歷史
+        fetch(`${BASE_URL}/account/portfolio/history?period=1M&timeframe=1D`, { headers }),
+    ]);
+
+    // 將 Alpaca equity 轉換為 NAV（初始資本 $100,000 → base NAV $100）
+    const navHistory = [];
+    if (history && Array.isArray(history.timestamp)) {
+        history.timestamp.forEach((ts, i) => {
+            const equity = history.equity[i];
+            if (equity && equity > 0) {
+                navHistory.push({
+                    time: new Date(ts * 1000).toLocaleDateString(),
+                    nav:  (equity / 100_000) * 100,   // 換算為 NAV（$100 基準）
+                });
+            }
+        });
+    }
 
     return {
         statusCode: 200,
         body: JSON.stringify({
-            equity: parseFloat(account.equity),
-            positions: positions.map(p => ({
-                symbol: p.symbol,
-                market_value: parseFloat(p.market_value),
-                unrealized_pl: parseFloat(p.unrealized_pl),
-            })),
+            equity,
+            cash,
+            positions,
+            navHistory,   // 每日 NAV 歷史，最多 30 天
+            timestamp: Date.now(),
         }),
     };
 };
 ```
 
-### 10.3 Gas 設定
+### 10.3 NAV 歷史圖表（localStorage 累積）
+
+由於 Alchemy 免費方案對 `eth_getLogs` 的 block range 限制極嚴（每次查詢上限約 10 個 block），無法透過鏈上事件查詢累積 NAV 歷史。前端改用以下策略：
+
+```
+策略：Alpaca API（30 天 seed） + localStorage（長期累積）
+
+1. 頁面載入時，先從 localStorage 讀取已存的 NAV 歷史（可達 90 天）
+2. 每 5 分鐘呼叫 Netlify Function 取得最新 navHistory（最近 30 天）
+3. 以日期為 key 合併 Alpaca 歷史與 localStorage 歷史（去重）
+4. 追加今日即時 NAV，存回 localStorage（保留最近 90 天）
+```
+
+```javascript
+// useFund.js
+const STORAGE_KEY = "mag7_nav_history";
+
+// 頁面載入：從 localStorage 恢復歷史
+useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (stored.length > 0) setNavHistory(stored);
+}, []);
+
+// 每 5 分鐘：合併最新 Alpaca 歷史並存回
+const alpacaMap = new Map(data.navHistory.map(d => [d.time, d]));
+alpacaMap.set(today, { time: today, nav: navPerToken });   // 追加今日
+const merged = Array.from(alpacaMap.values())
+    .sort((a, b) => new Date(a.time) - new Date(b.time))
+    .slice(-90);   // 保留最近 90 天
+localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+setNavHistory(merged);
+```
+
+### 10.4 Gas 設定
 
 所有前端交易使用固定的 EIP-1559 Gas 參數，以確保在 Polygon Amoy 上順利執行：
 

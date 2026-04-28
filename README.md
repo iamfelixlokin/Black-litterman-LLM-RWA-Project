@@ -165,6 +165,8 @@ black_litterman_project/
 | Oracle 服務 | ✅ |
 | 前端（Netlify） | ✅ |
 | GitHub Actions 自動化 | ✅ |
+| NAV 歷史圖表（localStorage + Alpaca history） | ✅ |
+| Oracle 與回測 LLM 上下文一致性 | ✅ |
 
 ---
 
