@@ -143,7 +143,7 @@ class NAVCalculator:
         prices  = self.data_collector.fetch_price_data(start_date, end_date)
         returns = prices[self.tickers].pct_change().dropna().tail(self.lookback_days)
 
-        P, Q, Omega = self._build_views(returns)
+        P, Q, Omega = self._build_views(returns, prices=prices)
 
         market_caps = self._fetch_market_caps()
 
@@ -250,12 +250,14 @@ class NAVCalculator:
     def _build_views(
         self,
         returns: pd.DataFrame,
+        prices: pd.DataFrame | None = None,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Build P, Q, Omega matrices for the BL model.
 
         Uses LLM-generated views if the generator is available;
         otherwise falls back to neutral (equal-weight market prior, no views).
+        Uses the same prepare_llm_context() as the backtest for consistency.
         """
         n_assets = len(self.tickers)
 
@@ -266,19 +268,31 @@ class NAVCalculator:
             Omega = np.eye(n_assets) * 0.1
             return P, Q, Omega
 
-        # Build per-ticker context strings (last 30 days of returns)
+        # Build per-ticker context strings — same as backtest engine
         contexts: Dict[str, str] = {}
+        today = pd.Timestamp.now()
         for ticker in self.tickers:
             if ticker not in returns.columns:
                 continue
-            r = returns[ticker].tail(30)
-            ctx_lines = [
-                f"Ticker: {ticker}",
-                f"30-day cumulative return: {(1 + r).prod() - 1:.2%}",
-                f"30-day volatility (annualised): {r.std() * np.sqrt(252):.2%}",
-                f"7-day return: {(1 + r.tail(7)).prod() - 1:.2%}",
-            ]
-            contexts[ticker] = "\n".join(ctx_lines)
+            if prices is not None and ticker in prices.columns:
+                # 用 prepare_llm_context 取得完整資料（含 vs SPY alpha 分析）
+                ctx = self.data_collector.prepare_llm_context(
+                    ticker=ticker,
+                    date=today,
+                    price_history=prices,
+                    lookback_days=60,
+                    use_news=False,
+                )
+            else:
+                # fallback：若沒有價格資料，用簡易版
+                r = returns[ticker].tail(30)
+                ctx = "\n".join([
+                    f"Ticker: {ticker}",
+                    f"30-day cumulative return: {(1 + r).prod() - 1:.2%}",
+                    f"30-day volatility (annualised): {r.std() * np.sqrt(252):.2%}",
+                    f"7-day return: {(1 + r.tail(7)).prod() - 1:.2%}",
+                ])
+            contexts[ticker] = ctx
 
         views_df = self.llm_generator.generate_views_batch(
             tickers=self.tickers,
